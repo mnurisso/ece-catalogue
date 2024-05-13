@@ -1,0 +1,70 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+  atm-2d-yearly:
+    description: IFS 2d output
+    driver: netcdf
+    metadata:
+      source_grid_name: tl159
+      fixer_name: ec-earth4-ifs-destine
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/omga/output/oifs/omga_atm_cmip6_1y*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  atm-3d-yearly:
+    description: IFS 3d pl output
+    driver: netcdf
+    metadata:
+      source_grid_name: tl159
+      fixer_name: ec-earth4-ifs-destine
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/omga/output/oifs/omga_atm_cmip6_pl_1y*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  ice-yearly:
+    description: NEMO ice output
+    driver: netcdf
+    metadata:
+      source_grid_name: eORCA1-ece
+      fixer_name: ec-earth4-nemo-ice-destine
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_ice_1y_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  # NEMO-oce-3d-yearly:
+  #   description: NEMO ocean 3d output
+  #   driver: netcdf
+  #   metadata:
+  #     source_grid_name: lon-lat
+  #     fixer_name: ec-earth4-nemo-destine
+  #   args:
+  #     urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_diaptr3d_*.nc'
+  #     chunks: 
+  #       time_counter: 1
+  #     xarray_kwargs:
+  #       decode_times: True
+  #       use_cftime: True
+  oce-T-yearly:
+    description: NEMO ocean T output
+    driver: netcdf
+    metadata:
+      source_grid_name: eORCA1-ece
+      fixer_name: ec-earth4-nemo-T-destine
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True

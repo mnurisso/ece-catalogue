@@ -1,0 +1,11 @@
+sources:
+  lfr7:
+    description: EC-EARTH4 Epochal TL63L31/ORCA2L31 run
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/lfr7.yaml"
+  omga:
+    description: EC-EARTH4 Epochal TL159L91/eORCA1 run
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/omga.yaml"

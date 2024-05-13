@@ -1,0 +1,23 @@
+paths:
+  grids: /ec/res4/scratch/itmn/data/AQUA/grids
+  weights: /ec/res4/scratch/itmn/data/AQUA/weights
+  areas: /ec/res4/scratch/itmn/data/AQUA/areas
+
+metadata:
+  parameters:
+    DATA_PATH:
+      type: str
+      description: the path to observational datasets
+      default: /ec/res4/scratch/itmn/data/AQUA/datasets
+
+sources:
+  EC-EARTH4:
+    description: EC-EARTH4 IFS-NEMO coupled model
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/catalog/EC-EARTH4/main.yaml"
+  ERA5:
+    description: ERA5 reanalysis
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/catalog/ERA5/main.yaml"
