@@ -1,0 +1,10 @@
+grids:
+  ORCA2-2d:
+    path: '{{ grids }}/NEMO/ORCA2_mesh_sfc_grid_T.nc'
+    space_coord: ["x", "y"]
+  ORCA2-ece:
+    path:
+      2d: '{{ grids }}/NEMO/ORCA2_mesh_sfc_grid_T.nc'
+      level: '{{ grids }}/NEMO/ORCA2_mesh_3d_grid_T_level.nc'
+    space_coord: ["x", "y"]
+    vert_coord: ["2d", "level"]
