@@ -2,9 +2,15 @@ grids:
   ORCA2-2d:
     path: '{{ grids }}/NEMO/ORCA2_mesh_sfc_grid_T.nc'
     space_coord: ["x", "y"]
+  ORCA2-3d:
+    path: '{{ grids }}/NEMO/ORCA2_mesh_3d_grid_T_level.nc'
+    space_coord: ["x", "y"]
+    vert_coord: ["level"]
+  # This following grid is an attempt to represent have the 2d and 3d grid in the same file
+  # It does not work unless you go to the branch `retrieve_plain-fix-argument`
   ORCA2-ece:
     path:
       2d: '{{ grids }}/NEMO/ORCA2_mesh_sfc_grid_T.nc'
       level: '{{ grids }}/NEMO/ORCA2_mesh_3d_grid_T_level.nc'
-    space_coord: ["x", "y"]
-    vert_coord: ["2d", "level"]
+    # space_coord: ["x_grid_T", "y_grid_T"]
+    vert_coord: ["2d", "deptht"]
