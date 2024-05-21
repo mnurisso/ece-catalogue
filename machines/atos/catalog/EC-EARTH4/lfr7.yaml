@@ -21,7 +21,7 @@ sources:
     driver: netcdf
     metadata:
       source_grid_name: tl63
-      fixer_name: ec-earth4-ifs
+      fixer_name: ec-earth4-ifs-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/lfr7/output/oifs/lfr7_atm_cmip6_pl_1m*.nc'
       chunks: 
@@ -29,11 +29,11 @@ sources:
       xarray_kwargs:
         decode_times: True
         use_cftime: True
-  NEMO-ice:
+  ice-monthly:
     description: NEMO ice output
     driver: netcdf
     metadata:
-      source_grid_name: lon-lat
+      source_grid_name: ORCA2-2d
       fixer_name: ec-earth4-nemo-ice
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/lfr7/output/nemo/lfr7_ice_1m_*.nc'
@@ -42,7 +42,7 @@ sources:
       xarray_kwargs:
         decode_times: True
         use_cftime: True
-  NEMO-oce-T-monthly:
+  oce-T-monthly:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
