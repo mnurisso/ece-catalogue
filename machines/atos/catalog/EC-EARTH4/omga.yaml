@@ -33,7 +33,7 @@ sources:
     description: NEMO ice output
     driver: netcdf
     metadata:
-      source_grid_name: eORCA1-2d
+      source_grid_name: eORCA1-2d-ece
       fixer_name: ec-earth4-nemo-ice-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_ice_1y_*.nc'
@@ -46,7 +46,7 @@ sources:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
-      source_grid_name: eORCA1-2d
+      source_grid_name: eORCA1-2d-ece
       fixer_name: ec-earth4-nemo-2d-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_T_*.nc'
@@ -59,7 +59,7 @@ sources:
     description: NEMO ocean 3d output
     driver: netcdf
     metadata:
-      source_grid_name: eORCA1-3d-level
+      source_grid_name: eORCA1-3d-ece
       fixer_name: ec-earth4-nemo-3d-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_T_*.nc'
