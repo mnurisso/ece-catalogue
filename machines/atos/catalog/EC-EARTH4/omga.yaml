@@ -33,7 +33,7 @@ sources:
     description: NEMO ice output
     driver: netcdf
     metadata:
-      source_grid_name: eORCA1-ece
+      source_grid_name: eORCA1-2d
       fixer_name: ec-earth4-nemo-ice-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_ice_1y_*.nc'
@@ -42,25 +42,25 @@ sources:
       xarray_kwargs:
         decode_times: True
         use_cftime: True
-  # NEMO-oce-3d-yearly:
-  #   description: NEMO ocean 3d output
-  #   driver: netcdf
-  #   metadata:
-  #     source_grid_name: lon-lat
-  #     fixer_name: ec-earth4-nemo-destine
-  #   args:
-  #     urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_diaptr3d_*.nc'
-  #     chunks: 
-  #       time_counter: 1
-  #     xarray_kwargs:
-  #       decode_times: True
-  #       use_cftime: True
-  oce-T-yearly:
+  oce-2d-monthly:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
-      source_grid_name: eORCA1-ece
-      fixer_name: ec-earth4-nemo-T-destine
+      source_grid_name: eORCA1-2d
+      fixer_name: ec-earth4-nemo-2d-destine
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  oce-3d-monthly:
+    description: NEMO ocean 3d output
+    driver: netcdf
+    metadata:
+      source_grid_name: eORCA1-3d-level
+      fixer_name: ec-earth4-nemo-3d-destine
     args:
       urlpath: '/ec/res4/scratch/itas/ece4/omga/output/nemo/omga_oce_1y_T_*.nc'
       chunks: 
