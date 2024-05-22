@@ -50,7 +50,7 @@ fixer_name:
         source: siconc
         grib: true
 
-  ec-earth4-nemo-T-2d:
+  ec-earth4-nemo-2d:
     data_model: false
     dims:
       time:
@@ -71,51 +71,36 @@ fixer_name:
         source: nav_lon_grid_T
     delete:
       - time_centered
-  ec-earth4-nemo-T-3d:
-    data_model: false
-    dims:
-      time:
-        source: time_counter
-      level:
-        source: deptht
-      x:
-        source: x_grid_T
-      y:
-        source: y_grid_T
-    vars: # placeholder (see issue #1127)
-      dummy:
-        source: not-existing
-    coords:
-      time:
-        source: time_counter
-      level:
-        source: deptht
-      lat:
-        source: nav_lat_grid_T
-      lon:
-        source: nav_lon_grid_T
-    delete:
-      - time_centered
-
-  ec-earth4-nemo-2d-destine:
-    parent: ec-earth4-nemo-T-2d
-    vars:
-      avg_tos:
-        grib: true
-        source: tos
-    delete:
       - deptht_bounds
       - deptht
       - e3t
       - thetao
       - so
-  ec-earth4-nemo-3d-destine:
-    parent: ec-earth4-nemo-T-3d
-    vars:
-      avg_thetao:
-        grib: true
-        source: thetao
+  ec-earth4-nemo-3d:
+    data_model: false
+    dims:
+      time:
+        source: time_counter
+      level:
+        source: deptht
+      x:
+        source: x_grid_T
+      y:
+        source: y_grid_T
+    vars: # placeholder (see issue #1127)
+      dummy:
+        source: not-existing
+    coords:
+      time:
+        source: time_counter
+      level:
+        source: deptht
+      lat:
+        source: nav_lat_grid_T
+      lon:
+        source: nav_lon_grid_T
     delete:
+      - time_centered
       - tos
       - sos
       - zos
@@ -136,3 +121,16 @@ fixer_name:
       - windsp
       - precip
       - snowpre
+
+  ec-earth4-nemo-2d-destine:
+    parent: ec-earth4-nemo-T-2d
+    vars:
+      avg_tos:
+        grib: true
+        source: tos
+  ec-earth4-nemo-3d-destine:
+    parent: ec-earth4-nemo-T-3d
+    vars:
+      avg_thetao:
+        grib: true
+        source: thetao

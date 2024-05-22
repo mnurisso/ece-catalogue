@@ -5,12 +5,15 @@ Tool for generating catalog entries for the EC-EARTH4 model based on jinja
 Based on the AQUA catalogue generator
 '''
 
-import jinja2
 import os
 import sys
 import argparse
+import jinja2
+
+from aqua import Reader, inspect_catalogue
 from aqua.util import ConfigPath, load_yaml, dump_yaml, get_arg
 from aqua.logger import log_configure
+
 
 def parse_arguments(arguments):
     """
@@ -116,14 +119,28 @@ if __name__ == '__main__':
     logger.debug("Main file: %s", main_yaml_path)
 
     main_yaml = load_yaml(main_yaml_path)
-    main_yaml['sources'][definitions['exp']] = {
+    main_yaml['sources'][definitions['exp_name']] = {
         'description': definitions['description'],
         'driver': 'yaml_file_cat',
         'args': {
-            'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp']}.yaml"
+            'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp_name']}.yaml"
         }
     }
 
     dump_yaml(main_yaml_path, main_yaml)
 
-    logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp'], output_dir)
+    logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp_name'], output_dir)
+
+    # Check if the file is in the catalogue
+    sources = inspect_catalogue(model=definitions['model'], exp=definitions['exp_name'], verbose=False)
+
+    if sources is False:
+        raise ValueError(f"Model {definitions['model']} and exp {definitions['exp_name']} not found in the catalogue")
+    else:
+        logger.debug("Sources available in catalogue for model %s and exp %s: %s", definitions['model'], definitions['exp_name'], sources)
+    
+    for source in sources:
+        reader = Reader(model=definitions['model'], exp=definitions['exp_name'], source=source,
+                        areas=False, loglevel=loglevel)
+
+    logger.info("Catalogue generation completed")
