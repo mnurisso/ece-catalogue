@@ -42,7 +42,7 @@ sources:
       xarray_kwargs:
         decode_times: True
         use_cftime: True
-  oce-2d-monthly:
+  oce-2d-yearly:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
@@ -55,7 +55,7 @@ sources:
       xarray_kwargs:
         decode_times: True
         use_cftime: True
-  oce-3d-monthly:
+  oce-3d-yearly:
     description: NEMO ocean 3d output
     driver: netcdf
     metadata:
