@@ -1,0 +1,70 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+  atm-2d-monthly:
+    description: IFS 2D atmospheric data on tl63 grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: tl63
+      fixer_name: ec-earth4-ifs
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/lfr6/output/oifs/lfr6_atm_cmip6_1m*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  atm-3d-monthly:
+    description: IFS 3D pl atmospheric data on tl63 grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: tl63
+      fixer_name: ec-earth4-ifs
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/lfr6/output/oifs/lfr6_atm_cmip6_pl_1m*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  ice-monthly:
+    description: NEMO ice data on ORCA2 grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: ORCA2-2d-ece
+      fixer_name: ec-earth4-nemo-ice
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/lfr6/output/nemo/lfr6_ice_1m_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  oce-2d-monthly:
+    description: NEMO 2D ocean data on ORCA2 grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: "ORCA2-2d-ece"
+      fixer_name: ec-earth4-nemo-2d
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/lfr6/output/nemo/lfr6_oce_1m_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  oce-3d-monthly:
+    description: NEMO 3D ocean data on ORCA2 grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: ORCA2-3d-ece
+      fixer_name: ec-earth4-nemo-3d
+    args:
+      urlpath: '/ec/res4/scratch/itas/ece4/lfr6/output/nemo/lfr6_oce_1m_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
