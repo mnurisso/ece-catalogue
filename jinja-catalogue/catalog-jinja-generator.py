@@ -93,38 +93,37 @@ if __name__ == '__main__':
     template = templateEnv.get_template(jinja_file)
     outputText = template.render(definitions)
 
-    # #create output file in model folder
-    # configurer = ConfigPath()
-    # catalog_path, fixer_folder, config_file = configurer.get_reader_filenames()
+    # Create output file in model folder
+    configurer = ConfigPath()
+    catalog_path, _, _, config_file = configurer.get_reader_filenames()
 
-    # output_dir = os.path.join(os.path.dirname(catalog_path), 'catalog', definitions['model'])
-    # output_filename = f"{definitions['exp']}.yaml"
-    # output_path = os.path.join(output_dir, output_filename)
-
-    # if os.path.exists(output_path):
-    #     os.remove(output_path)
-
-    output_filename = f"{definitions['exp']}.yaml"
-    output_dir = "./"
+    output_dir = os.path.join(os.path.dirname(catalog_path), 'catalog', definitions['model'])
+    output_filename = f"{definitions['exp_name']}.yaml"
     output_path = os.path.join(output_dir, output_filename)
+    logger.debug("Output file: %s", output_path)
+
+    if os.path.exists(output_path):
+         logger.warning("File %s already exists, it will be overwritten", output_path)
+         os.remove(output_path)
 
     with open(output_path, "w", encoding='utf8') as output_file:
         output_file.write(outputText)
 
     logger.info("File %s has been created in %s", output_filename, output_dir)
 
-    # #update main.yaml
-    # main_yaml_path = os.path.join(output_dir, 'main.yaml')
+    # Update main.yaml model file
+    main_yaml_path = os.path.join(output_dir, 'main.yaml')
+    logger.debug("Main file: %s", main_yaml_path)
 
-    # main_yaml = load_yaml(main_yaml_path)
-    # main_yaml['sources'][definitions['exp']] = {
-    #     'description': definitions['description'],
-    #     'driver': 'yaml_file_cat',
-    #     'args': {
-    #         'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp']}.yaml"
-    #     }
-    # }
+    main_yaml = load_yaml(main_yaml_path)
+    main_yaml['sources'][definitions['exp']] = {
+        'description': definitions['description'],
+        'driver': 'yaml_file_cat',
+        'args': {
+            'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp']}.yaml"
+        }
+    }
 
-    # dump_yaml(main_yaml_path, main_yaml)
+    dump_yaml(main_yaml_path, main_yaml)
 
-    # logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp'], output_dir)
+    logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp'], output_dir)
