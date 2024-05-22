@@ -30,6 +30,7 @@ def parse_arguments(arguments):
 
     return parser.parse_args(arguments)
 
+
 if __name__ == '__main__':
 
     # Parse arguments
@@ -44,7 +45,7 @@ if __name__ == '__main__':
     logger = log_configure(loglevel, 'EC-EARTH catalogue generator')
 
     definitions = load_yaml(definitions_file)
-    
+
     # Check if all mandatory fields are present
     if 'freq' not in definitions:
         definitions['freq'] = 'monthly'
@@ -60,15 +61,15 @@ if __name__ == '__main__':
         raise ValueError("IFS and NEMO grids are mandatory")
     if 'path' not in definitions:
         raise ValueError("You must provide the path where data are stored")
-    
+
     # Destine fixes are True by default
     if 'destine' not in definitions:
         definitions['destine'] = 'True'
 
     # Build the description if not provided
     if 'description' not in definitions:
-        definitions['description'] = f'EC-EARTH {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run'
-    
+        definitions['description'] = f'EC-EARTH {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run' # noqa
+
     # Build the string for the frequency
     if definitions['freq'] == 'monthly':
         definitions['exp_freq'] = '1m'
@@ -76,7 +77,7 @@ if __name__ == '__main__':
         definitions['exp_freq'] = '1y'
     else:
         raise ValueError("Frequency must be either 'monthly' or 'yearly'")
-    
+
     # Build the fixer names
     if definitions['destine'] == 'True':
         definitions['ifs_fixer'] = "ec-earth4-ifs-destine"
@@ -106,8 +107,8 @@ if __name__ == '__main__':
     logger.debug("Output file: %s", output_path)
 
     if os.path.exists(output_path):
-         logger.warning("File %s already exists, it will be overwritten", output_path)
-         os.remove(output_path)
+        logger.warning("File %s already exists, it will be overwritten", output_path)
+        os.remove(output_path)
 
     with open(output_path, "w", encoding='utf8') as output_file:
         output_file.write(outputText)
@@ -137,8 +138,9 @@ if __name__ == '__main__':
     if sources is False:
         raise ValueError(f"Model {definitions['model']} and exp {definitions['exp_name']} not found in the catalogue")
     else:
-        logger.debug("Sources available in catalogue for model %s and exp %s: %s", definitions['model'], definitions['exp_name'], sources)
-    
+        logger.debug("Sources available in catalogue for model %s and exp %s: %s",
+                     definitions['model'], definitions['exp_name'], sources)
+
     for source in sources:
         reader = Reader(model=definitions['model'], exp=definitions['exp_name'], source=source,
                         areas=False, loglevel=loglevel)
