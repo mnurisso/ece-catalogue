@@ -1,0 +1,70 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+  atm-2d-{{ freq }}:
+    description: IFS 2D atmospheric data on {{ ifs_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ ifs_grid }}
+      fixer_name: {{ ifs_fixer }}
+    args:
+      urlpath: '{{ path }}/oifs/{{ exp }}_atm_cmip6_{{ exp_freq }}*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  atm-3d-{{ freq }}:
+    description: IFS 3D pl atmospheric data on {{ ifs_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ ifs_grid }}
+      fixer_name: {{ ifs_fixer }}
+    args:
+      urlpath: '{{ path }}/oifs/{{ exp }}_atm_cmip6_pl_{{ exp_freq }}*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  ice-{{ freq }}:
+    description: NEMO ice data on {{ nemo_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ nemo_grid }}-2d-ece
+      fixer_name: {{ ice_fixer }}
+    args:
+      urlpath: '{{ path }}/nemo/{{ exp }}_ice_{{ exp_freq }}_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  oce-2d-{{ freq }}:
+    description: NEMO 2D ocean data on {{ nemo_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: "{{ nemo_grid }}-2d-ece"
+      fixer_name: {{ nemo_2d_fixer }}
+    args:
+      urlpath: '{{ path }}/nemo/{{ exp }}_oce_{{ exp_freq }}_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
+  oce-3d-{{ freq }}:
+    description: NEMO 3D ocean data on {{ nemo_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ nemo_grid }}-3d-ece
+      fixer_name: {{ nemo_3d_fixer }}
+    args:
+      urlpath: '{{ path }}/nemo/{{ exp }}_oce_{{ exp_freq }}_T_*.nc'
+      chunks: 
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        use_cftime: True
