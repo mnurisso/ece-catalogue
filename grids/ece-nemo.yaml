@@ -1,0 +1,14 @@
+grids:
+  ORCA2-2d-ece:
+    path: '{{ grids }}/NEMO/ORCA2_mesh_sfc_grid_T.nc'
+    space_coord: ["x", "y"]
+  ORCA2-3d-ece:
+    path: '{{ grids }}/NEMO/ORCA2_mesh_3d_grid_T_level.nc'
+    space_coord: ["x", "y"]
+    vert_coord: ["level"]
+  eORCA1-2d-ece:
+    path: '{{ grids }}/EC-EARTH/eORCA1_mesh_sfc_grid_T.nc'
+  eORCA1-3d-ece:
+    path: '{{ grids }}/EC-EARTH/eORCA1_mesh_3d_grid_T_level.nc'
+    space_coord: ["x", "y"]
+    vert_coord: ["level"]
