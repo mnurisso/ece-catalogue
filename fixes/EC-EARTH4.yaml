@@ -1,36 +1,66 @@
 fixer_name:
   # IFS fixes
   ec-earth4-ifs:
-    data_model: false
+    data_model: ifs
+    #data_model: false
+    convention: eccodes
     coords:
       time:
         source: time_counter
       plev:
         source: pressure_levels
-    delete:
+    delete: 
       - time_centered
-    vars: # placeholder (see issue #1127)
-      dummy:
-        source: not-existing
-  ec-earth4-ifs-destine:
-    parent: ec-earth4-ifs
+      - time_centered_bounds
+      - time_counter_bounds
+      - bounds_lon
+      - bounds_lat
+      - rlut
+      - rsut
+      - hfls
+      - hfss
+      - evspsbl
     vars:
-      2t:
-        grib: true
-        source: ts
-      msl:
-        grib: true
-        source: psl
-      tprate: # TODO: transform to mtpr
-        grib: true
-        source: pr
+      # these are standard CMOR variables but they require a sign change
+      tnswrf:
+        derived: rsdt-rsut
+        grib: 260671
+      tnlwrf:
+        derived: -rlut
+        grib: 260672
+      slhtf: # Surface latent heat net flux
+        derived: -hfls # cmor
+        grib: 260002
+      ishf: # Surface sensible heat net flux
+        derived: -hfss # cmor
+        grib: 231
+      ie: # Evaporation or moisture flux
+        derived: -evspsbl
+        grib: 232
+      # these are not standard CMOR variables
+      snlwrf: # Surface net long-wave radiation flux
+        source: rlns
+        grib: 260099
+      snswrf: # Surface net short-wave radiation flux
+        source: rsns
+        grib: 260089
+      tnlwrfcs: # Top net long-wave radiation flux clear sky
+        source: rlntcs
+        grib: 260675
+      # tnswrf: # Top net short-wave radiation flux
+      #  source: rsnt
+      #  grib: 260671
+      tnswrfcs: # Top net short-wave radiation flux clear sky
+        source: rsntcs
+        grib: 260674
+      tciw: # Total column vertically-integrated cloud ice water
+        source: iwp
+        grib: 79
+
 
   # NEMO fixes
   ec-earth4-nemo-ice:
     data_model: false
-    dims:
-      time:
-        source: time_counter
     coords:
       time:
         source: time_counter
@@ -40,43 +70,13 @@ fixer_name:
         source: nav_lon
     delete:
       - time_centered
-    vars: # placeholder (see issue #1127)
-      dummy:
-        source: not-existing
-  ec-earth4-nemo-ice-destine:
-    parent: ec-earth4-nemo-ice
     vars:
-      avg_siconc:  # siconc
-        source: siconc
-        grib: true
+      sivol: 
+        source: sivolu
+      sithick: 
+        source: sithic
 
-  ec-earth4-nemo-2d:
-    data_model: false
-    dims:
-      time:
-        source: time_counter
-      x:
-        source: x_grid_T
-      y:
-        source: y_grid_T
-    vars: # placeholder (see issue #1127)
-      dummy:
-        source: not-existing
-    coords:
-      time:
-        source: time_counter
-      lat:
-        source: nav_lat_grid_T
-      lon:
-        source: nav_lon_grid_T
-    delete:
-      - time_centered
-      - deptht_bounds
-      - deptht
-      - e3t
-      - thetao
-      - so
-  ec-earth4-nemo-3d:
+  ec-earth4-nemo:
     data_model: false
     dims:
       time:
@@ -99,38 +99,3 @@ fixer_name:
         source: nav_lat_grid_T
       lon:
         source: nav_lon_grid_T
-    delete:
-      - time_centered
-      - tos
-      - sos
-      - zos
-      - sstdcy
-      - mldkz5
-      - mldr10_1
-      - mldr10_1dcy
-      - sbt
-      - heatc
-      - saltc
-      - wfo
-      - qstr_oce
-      - qns_oce
-      - qsr_oce
-      - qt_oce
-      - sfx
-      - taum
-      - windsp
-      - precip
-      - snowpre
-
-  ec-earth4-nemo-2d-destine:
-    parent: ec-earth4-nemo-T-2d
-    vars:
-      avg_tos:
-        grib: true
-        source: tos
-  ec-earth4-nemo-3d-destine:
-    parent: ec-earth4-nemo-T-3d
-    vars:
-      avg_thetao:
-        grib: true
-        source: thetao

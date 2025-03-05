@@ -1,8 +1,3 @@
-paths:
-  grids: /ec/res4/scratch/itmn/data/AQUA/grids
-  weights: /ec/res4/scratch/itmn/data/AQUA/weights
-  areas: /ec/res4/scratch/itmn/data/AQUA/areas
-
 metadata:
   parameters:
     DATA_PATH:
@@ -16,7 +11,7 @@ sources:
     driver: yaml_file_cat
     args:
         path: "{{CATALOG_DIR}}/catalog/EC-EARTH4/main.yaml"
-  ERA5:
+  ERA5-new:
     description: ERA5 reanalysis
     driver: yaml_file_cat
     args:

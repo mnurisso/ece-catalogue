@@ -14,3 +14,28 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/lfr6.yaml'
+  s000:
+    description: TL255 S000 base experiment 
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/s000.yaml"
+  tu01:
+    description: TL255 tu01 - tuned version of s000 - main on 20250212
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/tu01.yaml"
+  c000:
+    description: TL255 c000 base coupled experiment 
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/c000.yaml"
+  pr04:
+    description: ECE4 oifs-43 experiment TL255 (KW - SMHI - 202502) 
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/pr04.yaml"
+  e486:
+    description: ECE4 oifs-48 experiment TL255 (KW - SMHI - 202502)
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/e486.yaml"
