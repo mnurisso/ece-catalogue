@@ -1,5 +1,6 @@
 ## EC-EARTH4 AQUA catalogue
 
-This repository contains experiments that can be open by the AQUA code and contained on HPC2020 (Atos) machine.
+This repository contains a catalogue that can be opened by AQUA code for EC-Earth4 experiments on the HPC2020 machine at ECMWF.
 
-PS: this is a WIP project and it is not aligned to the latest version of AQUA.
+It also provides needed grids and fixes.
+
