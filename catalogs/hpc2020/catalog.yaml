@@ -11,8 +11,4 @@ sources:
     driver: yaml_file_cat
     args:
         path: "{{CATALOG_DIR}}/catalog/EC-EARTH4/main.yaml"
-  ERA5-new:
-    description: ERA5 reanalysis
-    driver: yaml_file_cat
-    args:
-        path: "{{CATALOG_DIR}}/catalog/ERA5/main.yaml"
+
