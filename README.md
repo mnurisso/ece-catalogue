@@ -13,7 +13,7 @@ Instructions:
 
 - Then run the script ``install.sh`` in this directory.
 
-EC-Earth4 sources are now availble from the EC-Earth4 mode, your experiment identifier and one of the sources defined in the catalogue (such as ``monthly-atm``).
+EC-Earth4 sources are now availble from the EC-EARTH4 model, your experiment identifier and one of the sources defined in the catalogue (such as ``monthly-atm``).
 
 Next you can modify to your needs the job template in ``jobs/aqua_analysis_e486.job`` and run your first AQUA analysis.
 Currently to add a new experiments you can duplicate manually the existing examples, but we are developing a catalogue generator.
