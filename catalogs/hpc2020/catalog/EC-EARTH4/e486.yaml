@@ -26,7 +26,7 @@ sources:
       source_grid_name: eORCA1-ece
       fixer_name: ec-earth4-nemo
     args:
-      urlpath: '/perm/smw/ece-4-exps/PR04/output/nemo/PR04_oce_1m_T_*.nc'
+      urlpath: '/perm/smw/ece-4-exps/E486/nemo/E486_oce_1m_T_*.nc'
       chunks:
         time_counter: 1
       xarray_kwargs:
