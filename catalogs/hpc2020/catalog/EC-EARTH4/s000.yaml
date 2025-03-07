@@ -1,0 +1,32 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+  monthly-atm:
+    description: ECE4 S000 2D and 3D monthly data
+    driver: netcdf
+    metadata:
+       source_grid_name: tl255
+       fixer_name: ec-earth4-ifs
+    args:
+      urlpath:
+          - '/ec/res4/scratch/ccjh/ece4/s000/output/oifs/s000_atm_cmip6_1m_*.nc'
+          - '/ec/res4/scratch/ccjh/ece4/s000/output/oifs/s000_atm_cmip6_pl_1m_*.nc'
+      chunks:
+        time: 1
+      xarray_kwargs:
+        decode_times: True
+
+  # this is here only because of the OutputSaver bug #1685
+  lra-r100-monthly:
+    driver: netcdf
+    description: LRA data monthly at r100
+    args:
+      urlpath: '/dummy/*_r100_monthly_*.nc'
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+        combine: by_coords
+    metadata:
+      source_grid_name: lon-lat
