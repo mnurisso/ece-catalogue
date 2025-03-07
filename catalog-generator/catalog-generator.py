@@ -21,8 +21,8 @@ def parse_arguments(arguments):
     """
 
     parser = argparse.ArgumentParser(description='EC-EARTH entries generator')
-    parser.add_argument('-a', '--amip', type=bool,
-                        help='AMIP run', default=False)
+
+    parser.add_argument('-a', '--amip', action='store_true', help='AMIP run')
     parser.add_argument('-c', '--config', type=str,
                         help='yaml configuration file')
     parser.add_argument('-d', '--description', type=str,
