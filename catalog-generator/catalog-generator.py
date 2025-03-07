@@ -21,8 +21,14 @@ def parse_arguments(arguments):
     """
 
     parser = argparse.ArgumentParser(description='EC-EARTH entries generator')
+    parser.add_argument('-a', '--amip', type=bool,
+                        help='AMIP run', default=False)
     parser.add_argument('-c', '--config', type=str,
                         help='yaml configuration file')
+    parser.add_argument('-d', '--description', type=str,
+                        help='description')
+    parser.add_argument('-e', '--exp', type=str,
+                        help='experiment name')
     parser.add_argument('-j', '--jinja', type=str,
                         help='jinja template file')
     parser.add_argument('-l', '--loglevel', type=str,
@@ -46,6 +52,19 @@ if __name__ == '__main__':
 
     definitions = load_yaml(definitions_file)
 
+    exp = get_arg(args, 'exp', None)
+    if exp:
+        definitions['exp'] = exp
+        definitions['exp_name'] = exp
+
+    amip = get_arg(args, 'amip', None)
+    if amip:
+        definitions['amip'] = amip
+
+    description = get_arg(args, 'description', None)
+    if description:
+        definitions['description'] = description
+
     # Check if all mandatory fields are present
     if 'freq' not in definitions:
         definitions['freq'] = 'monthly'
@@ -65,8 +84,8 @@ if __name__ == '__main__':
         raise ValueError("You must provide the path where data are stored")
 
     # Destine fixes are True by default
-    if 'destine' not in definitions:
-        definitions['destine'] = 'True'
+    # if 'destine' not in definitions:
+    #    definitions['destine'] = 'True'
 
     # Build the description if not provided
     if 'description' not in definitions:
@@ -81,15 +100,12 @@ if __name__ == '__main__':
         raise ValueError("Frequency must be either 'monthly' or 'yearly'")
 
     # Build the fixer names
-    if definitions['destine'] == 'True':
-        definitions['ifs_fixer'] = "ec-earth4-ifs"
-        definitions['ice_fixer'] = "ec-earth4-nemo-ice"
-        definitions['nemo_fixer'] = "ec-earth4-nemo"
-    else:
-        definitions['ifs_fixer'] = "ec-earth4-ifs"
-        definitions['ice_fixer'] = "ec-earth4-nemo-ice"
-        definitions['nemo_fixer'] = "ec-earth4-nemo"
-
+    #if definitions['destine'] == 'True':
+    definitions['ifs_fixer'] = "ec-earth4-ifs"
+    definitions['ice_fixer'] = "ec-earth4-nemo-ice"
+    definitions['nemo_fixer'] = "ec-earth4-nemo"
+    #else:
+        # do something else
 
     # jinja2 loading and replacing (to be checked)
     templateLoader = jinja2.FileSystemLoader(searchpath='./')
