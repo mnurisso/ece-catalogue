@@ -19,6 +19,7 @@ sources:
       xarray_kwargs:
         decode_times: True
 
+{% if not amip %}
   {{ freq }}-oce:
     description: NEMO ocean T output
     driver: netcdf
@@ -46,6 +47,7 @@ sources:
       xarray_kwargs:
         decode_times: True
         #use_cftime: True
+{% endif %}
 
   # this is here only because of the OutputSaver bug #1685
   lra-r100-monthly:

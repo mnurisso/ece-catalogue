@@ -59,6 +59,8 @@ if __name__ == '__main__':
         definitions['exp_name'] = definitions['exp']
     if 'ifs_grid' not in definitions or 'nemo_grid' not in definitions:
         raise ValueError("IFS and NEMO grids are mandatory")
+    if 'amip' not in definitions:
+        definitions['amip'] = False
     if 'path' not in definitions:
         raise ValueError("You must provide the path where data are stored")
 
