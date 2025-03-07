@@ -56,6 +56,15 @@ fixer_name:
       tciw: # Total column vertically-integrated cloud ice water
         source: iwp
         grib: 79
+      hcc: # High cloud cover
+        source: clh
+        grib: 3075
+      lcc: # Low cloud cover
+        source: cll
+        grib: 3073
+      mcc: # Medium cloud cover
+        source: clm
+        grib: 3074
 
   # NEMO fixes
   ec-earth4-nemo-ice:
