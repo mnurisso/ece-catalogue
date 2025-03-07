@@ -1,0 +1,19 @@
+# this is a template file for the EC-EARTH4 catalog generator
+# you need to copy this file into a config.yaml file and then fill all keys below
+# with the appropriate values for your experiment
+
+# AQUA definitions
+catalog: hpc2020
+model: EC-EARTH4
+exp_name: e486 # name that will appear in the catalogue
+
+# EC-EARTH4 specific definitions
+exp: E486 # name used in EC-EARTH4
+ifs_grid: tl255 # tl255, tl63 and tl159 available
+nemo_grid: eORCA1 # ORCA2 and eORCA1 available
+freq: monthly # monthly or yearly available
+path: /ec/res4/scratch/ccjh/ece4 # main output base path, data will be in $path/output/oifs, $path/output/nemo
+
+# Optional
+description: 'EC-EARTH4 catalogue test run' # if commented out, it will be built by the script
+destine: True # True by default, set to False if you don't want the destine fixer (currently no effect)
