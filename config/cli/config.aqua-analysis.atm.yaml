@@ -130,12 +130,12 @@ diagnostics:
   ocean3d_drift:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 8
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.drift.yaml"
   ocean3d_circulation:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 4
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.circulation.yaml"
   seaice_volume:
     script_path: "seaice/cli/cli_seaice.py"
@@ -145,20 +145,20 @@ diagnostics:
     #               (default is False)
     # --config (seaice config file)
     # --regrid (regrid data to a different grid)
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Volume.yaml"
   seaice_thick:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Thickness.yaml"
   seaice_conc:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Concentration.yaml"
   seaice_extent:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=F128"
+    extra: "--regrid=r100"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Extent.yaml"
