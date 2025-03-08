@@ -1,0 +1,63 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+
+  {{ freq }}-atm:
+    description: IFS 2D atmospheric data on {{ ifs_grid }} grid.
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ ifs_grid }}
+      fixer_name: {{ ifs_fixer }}
+    args:
+      urlpath:
+          - {{ path }}/{{ exp }}/output/oifs/{{ exp }}_atm_cmip6_{{ exp_freq }}*.nc
+          - {{ path }}/{{ exp }}/output/oifs/{{ exp }}_atm_cmip6_pl_{{ exp_freq }}*.nc
+      chunks:
+        time: 1
+      xarray_kwargs:
+        decode_times: True
+
+{% if not amip %}
+  {{ freq }}-oce:
+    description: NEMO ocean T output
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ nemo_grid }}-ece
+      fixer_name: {{ nemo_fixer }}
+    args:
+      urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_oce_{{ exp_freq }}_T_*.nc
+      chunks:
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        #use_cftime: True
+
+  {{ freq }}-ice:
+    description: NEMO ice output
+    driver: netcdf
+    metadata:
+      source_grid_name: {{ nemo_grid }}-ece-ice
+      fixer_name: {{ ice_fixer }}
+    args:
+      urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_ice_{{ exp_freq }}_*.nc
+      chunks:
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
+        #use_cftime: True
+{% endif %}
+
+  # this is here only because of the OutputSaver bug #1685
+  lra-r100-monthly:
+    driver: netcdf
+    description: LRA data monthly at r100
+    args:
+      urlpath: '/dummy/*_r100_monthly_*.nc'
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+        combine: by_coords
+    metadata:
+      source_grid_name: lon-lat
