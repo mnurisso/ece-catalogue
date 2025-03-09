@@ -30,4 +30,4 @@ python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-oce -d 
 python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
 
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
-#./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
+#./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
