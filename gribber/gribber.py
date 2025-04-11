@@ -5,8 +5,7 @@ import os
 import subprocess
 from glob import glob
 from aqua.logger import log_configure
-from aqua.util import load_yaml, dump_yaml, create_folder
-from aqua.util import ConfigPath
+from aqua.util import load_yaml, dump_yaml, create_folder, ConfigPath
 from aqua.reader import Reader
 
 
@@ -31,37 +30,20 @@ class Gribber():
             model (str, optional):          Model name.
             exp (str, optional):            Experiment name.
             source (str, optional):         Source name.
-            nprocs (int, optional):         Number of processors.
-                                            Defaults to 1.
+            nprocs (int, optional):         Number of processors. Defaults to 1.
             dirdict (dict, optional):       Dictionary with directories:
-                                                data: data directory
+                                                datadir: data directory
                                                 tmp: temporary directory
                                                 json: JSON directory (output)
-                                                configdir: catalog directory
-                                                to update
+                                                configdir: catalog directory to update
                                             Defaults to {'datadir': None,
                                                          'tmpdir': None,
                                                          'jsondir': None,
                                                          'configdir': None}.
-            description (str, optional):    Description of the experiment.
-                                            Defaults to None.
+            description (str, optional):    Description of the experiment. Defaults to None.
             loglevel (str, optional):       Loglevel. Defaults to "WARNING".
-            overwrite (bool, optional):     Overwrite JSON file and indices if
-                                            they exist. Defaults to False.
-            search (bool, optional):        Search for generic names of files.
-                                            Defaults to False.
-
-        Methods:
-            Only private methods are listed here.
-            _check_steps():          Check which steps have to be performed.
-            _check_dir():            Check if directories exist.
-            _check_indices():        Check if indices exist.
-            _check_json():           Check if JSON file exists.
-            _check_catalog():        Check if catalog file exists.
-            _create_symlinks():      Create symlinks to GRIB files.
-            _create_indices():       Create indices for GRIB files.
-            _create_json():          Create JSON file.
-            _create_catalog_entry(): Create catalog entry.
+            overwrite (bool, optional):     Overwrite JSON file and indices if they exist. Defaults to False.
+            search (bool, optional):        Search for generic names of files. Defaults to False.
         """
         self.logger = log_configure(loglevel, 'Gribber')
         self.overwrite = overwrite
@@ -122,9 +104,7 @@ class Gribber():
             self.gribfiles = '*' + format
 
         # Get catalog filename
-        self.catalogdir = os.path.join(self.configdir, 'catalogs',
-                                       self.catalog, 'catalog',
-                                       self.model)
+        self.catalogdir = os.path.join(self.configdir, 'catalogs', self.catalog, 'catalog', self.model)
         self.catalogfile = os.path.join(self.catalogdir, self.exp + '.yaml')
         self.logger.info("Catalog file: %s", self.catalogfile)
 
@@ -201,8 +181,7 @@ class Gribber():
         """
         for key in self.dir:
             if self.dir[key] is None:
-                raise KeyError(f'Directory {key} is None:\
-                                check your configuration file!')
+                raise KeyError(f'Directory {key} is None: check your configuration file!')
 
     def _check_indices(self):
         """
@@ -254,12 +233,10 @@ class Gribber():
         """
         self.logger.info("Checking if catalog file already exists...")
         if os.path.exists(self.catalogfile):
-            self.logger.warning("Catalog file %s already exists.",
-                                self.catalogfile)
+            self.logger.warning("Catalog file %s already exists.", self.catalogfile)
             return True
         else:  # Catalog file does not exist
-            self.logger.warning("Catalog file %s does not exist.",
-                                self.catalogfile)
+            self.logger.warning("Catalog file %s does not exist.", self.catalogfile)
             self.logger.warning("It will be generated.")
             return False
 
@@ -273,11 +250,9 @@ class Gribber():
         try:
             for file in glob(os.path.join(self.datadir, self.gribfiles)):
                 try:
-                    os.symlink(file, os.path.join(self.tmpdir,
-                               os.path.basename(file)))
+                    os.symlink(file, os.path.join(self.tmpdir, os.path.basename(file)))
                 except FileExistsError:
-                    self.logger.info("File %s already exists in %s", file,
-                                     self.tmpdir)
+                    self.logger.info("File %s already exists in %s", file, self.tmpdir)
         except FileNotFoundError:
             self.logger.error("Directory %s not found.", self.datadir)
 
@@ -380,8 +355,7 @@ class Gribber():
         self.logger.info(block_main)
 
         # Write main catalog file
-        mainfilepath = os.path.join(self.configdir, 'machines', self.machine,
-                                    'catalog', self.model, 'main.yaml')
+        mainfilepath = os.path.join(self.configdir, 'machines', self.machine, 'catalog', self.model, 'main.yaml')
         main_file = load_yaml(mainfilepath)
 
         # Check if source already exists
