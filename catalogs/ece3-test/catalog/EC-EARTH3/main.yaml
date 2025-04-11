@@ -1,0 +1,6 @@
+sources:
+  test1:
+    description: ECE3 ORCA1 test
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/test1.yaml"
