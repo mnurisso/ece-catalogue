@@ -1,0 +1,5 @@
+dataset:
+  catalog: ece
+  model: EC-EARTH3
+  exp: grib-test
+  source: test
