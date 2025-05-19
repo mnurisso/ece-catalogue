@@ -1,5 +1,5 @@
 hpc2020:
   paths:
     grids: /ec/res4/hpcperm/ccjh/aqua_data/grids
-    weights: /ec/res4/hpcperm/ccjh/aqua_data/weights
-    areas: /ec/res4/hpcperm/ccjh/aqua_data/areas
+    weights: /ec/res4/hpcperm/itmn/data/aqua/weights
+    areas: /ec/res4/hpcperm/itmn/data/aqua/areas
