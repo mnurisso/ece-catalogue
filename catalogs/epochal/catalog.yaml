@@ -1,0 +1,6 @@
+sources:
+  EC-EARTH4:
+    description: EC-EARTH4 IFS-NEMO coupled model
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/catalog/EC-EARTH4/main.yaml"
