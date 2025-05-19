@@ -1,6 +1,6 @@
 sources:
   EA04:
-    description: ECE4 oifs-48 experiment
+    description: EC-EARTH4 AMIP oifs-48 experiment with modified orography
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/EA04.yaml'
