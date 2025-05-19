@@ -9,3 +9,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/PA02.yaml'
+  PC01:
+    description: Present-day Coupled test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/PC01.yaml'
