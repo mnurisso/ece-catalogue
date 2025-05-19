@@ -1,6 +1,6 @@
 sources:
-  test:
-    description: empty test
+  EA04:
+    description: ECE4 oifs-48 experiment
     driver: yaml_file_cat
     args:
-      path: '{{CATALOG_DIR}}/test.yaml'
+      path: '{{CATALOG_DIR}}/EA04.yaml'
