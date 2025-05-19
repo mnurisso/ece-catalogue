@@ -1,0 +1,7 @@
+sources:
+  EC-EARTH3:
+    description: EC-EARTH3 IFS-NEMO coupled model
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/catalog/EC-EARTH3/main.yaml"
+

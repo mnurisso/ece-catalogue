@@ -1,0 +1,18 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+
+  monthly-oce:
+    description: NEMO ocean T output
+    driver: netcdf
+    # metadata:
+    #   source_grid_name: eORCA1-ece
+    #   fixer_name: ec-earth4-nemo
+    args:
+      urlpath: '/lus/h2resw01/scratch/ita4210/ece3/shr1/output/Output_*/NEMO/*lim_grid_T_2D.nc'
+      chunks:
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: True
