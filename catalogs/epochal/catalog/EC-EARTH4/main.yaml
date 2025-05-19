@@ -4,3 +4,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/EA04.yaml'
+  PA02:
+    description: EC-EARTH4 present day AMIP TL63
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/PA02.yaml'
