@@ -27,6 +27,8 @@ def parse_arguments(arguments):
                         help='yaml configuration file')
     parser.add_argument('-d', '--description', type=str,
                         help='description')
+    parser.add_argument('-m', '--model', type=str,
+                        help='model name')
     parser.add_argument('-e', '--exp', type=str,
                         help='experiment name')
     parser.add_argument('-j', '--jinja', type=str,
@@ -51,6 +53,10 @@ if __name__ == '__main__':
     logger = log_configure(loglevel, 'EC-EARTH catalog generator')
 
     definitions = load_yaml(definitions_file)
+
+    model = get_arg(args, 'model', None)
+    if model:
+        definitions['model'] = model
 
     exp = get_arg(args, 'exp', None)
     if exp:
@@ -89,7 +95,7 @@ if __name__ == '__main__':
 
     # Build the description if not provided
     if 'description' not in definitions:
-        definitions['description'] = f'EC-EARTH {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run' # noqa
+        definitions['description'] = f'{definitions["model"]} {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run' # noqa
 
     # Build the string for the frequency
     if definitions['freq'] == 'monthly':
