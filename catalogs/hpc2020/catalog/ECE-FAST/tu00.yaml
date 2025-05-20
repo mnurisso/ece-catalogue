@@ -12,8 +12,8 @@ sources:
       fixer_name: ec-earth4-ifs
     args:
       urlpath:
-          - /lus/h2resw01/scratch/ccff/ece4/lr00/output/oifs/lr00_atm_cmip6_1m*.nc
-          - /lus/h2resw01/scratch/ccff/ece4/lr00/output/oifs/lr00_atm_cmip6_pl_1m*.nc
+          - /lus/h2resw01/scratch/ccff/ece4/tu00/output/oifs/tu00_atm_cmip6_1m*.nc
+          - /lus/h2resw01/scratch/ccff/ece4/tu00/output/oifs/tu00_atm_cmip6_pl_1m*.nc
       chunks:
         time: 1
       xarray_kwargs:

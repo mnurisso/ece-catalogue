@@ -4,3 +4,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/lr00.yaml'
+  tu00:
+    description: ECE-FAST tuning AMIP run present day tu00
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/tu00.yaml'
