@@ -18,6 +18,8 @@ catalog=<catalog> # available are hpc2020, epochal
 model=<model> # available are EC-EARTH4, ECE-FAST
 exp=<experiment>
 
+configfiles=<configfiles> # available are ece4, ecefast
+
 module load tykky
 tykky activate aqua
 
@@ -25,13 +27,26 @@ amip=false
 
 cd <PATH_TO_AQUA>/cli/aqua-analysis
 OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
-CONFIG_DIR=<PATH_TO_ECE4_REPO>/config/cli
+CONFIG_DIR=<PATH_TO_ECE4_REPO>/config # note the change of path from the previous version
+
+if [ "$model" = "EC-EARTH4" ]; then
+    configatm=$CONFIG_DIR/cli/config.aqua-analysis.atm.yaml
+    configoce=$CONFIG_DIR/cli/config.aqua-analysis.oce.yaml
+    configice=$CONFIG_DIR/cli/config.aqua-analysis.ice.yaml
+elif [ "$model" = "ECE-FAST" ]; then
+    configatm=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.atm.yaml
+    configoce=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.oce.yaml
+    configice=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.ice.yaml
+else
+    echo "Unknown model $model"
+    exit 1
+fi
 
 # We use three different scripts because they all use different sources
-python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
+python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm
 if [ "$amip" = false ]; then
-    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
-    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
+    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce
+    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice
 fi
 
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
