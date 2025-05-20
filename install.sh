@@ -11,6 +11,7 @@ AQUA_DIR=~/.aqua
 aqua grids add -e $SCRIPT_DIR/config/grids/EC-EARTH4.yaml
 aqua fixes add -e $SCRIPT_DIR/config/fixes/EC-EARTH4.yaml
 aqua add hpc2020 -e $SCRIPT_DIR/catalogs/hpc2020
+# aqua add epochal -e $SCRIPT_DIR/catalogs/epochal
 
 # Download grids from DKRZ Swift
 dst=$(grep -A 2 '^hpc2020:' $AQUA_DIR/catalogs/hpc2020/machine.yaml|tail -1| sed -E 's/.*grids:\s*(.*)/\1/')
