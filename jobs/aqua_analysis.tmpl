@@ -25,9 +25,9 @@ OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
 CONFIG_DIR=<PATH_TO_ECE4_REPO>/config/cli
 
 # We use three different scripts because they all use different sources
-python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
-python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
-python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
+python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
+python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
+python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
 
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
 #./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
