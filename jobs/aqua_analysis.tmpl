@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH -q np
+#SBATCH -n 1
+#SBATCH --cpus-per-task=32
+#SBATCH --account=<YOURACCOUNT>
+#SBATCH --job-name=aqua-analysis
+#SBATCH --output=/scratch/<YOURUSER>/log/aqua-%J.out
+#SBATCH --error=/scratch/<YOURUSER>/log/aqua-%J.err
+#SBATCH --chdir=/ec/res4/scratch/<YOURUSER>/aqua
+#SBATCH --qos=express
+#SBATCH --time=02:30:00
+#SBATCH --mail-type=FAIL
+
+###SBATCH --mem=239G
+set -eo
+
+catalog=<catalog> # available are hpc2020, epochal
+exp=<experiment>
+
+module load tykky
+tykky activate aqua
+
+cd <PATH_TO_AQUA>/cli/aqua-analysis
+OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
+CONFIG_DIR=<PATH_TO_ECE4_REPO>/config/cli
+
+# We use three different scripts because they all use different sources
+python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
+python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
+python aqua-analysis.py -l debug -c atos -m EC-EARTH4 -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
+
+#cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
+#./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
