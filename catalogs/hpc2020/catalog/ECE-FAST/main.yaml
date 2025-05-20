@@ -9,3 +9,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/tu00.yaml'
+  tuc0:
+    description: ECE-FAST tuning coupled run present day tuc0
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/tuc0.yaml'
