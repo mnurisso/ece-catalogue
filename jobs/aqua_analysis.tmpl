@@ -15,6 +15,7 @@
 set -eo
 
 catalog=<catalog> # available are hpc2020, epochal
+model=<model> # available are EC-EARTH4, ECE-FAST
 exp=<experiment>
 
 module load tykky
@@ -27,10 +28,10 @@ OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
 CONFIG_DIR=<PATH_TO_ECE4_REPO>/config/cli
 
 # We use three different scripts because they all use different sources
-python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
+python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.atm.yaml
 if [ "$amip" = false ]; then
-    python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
-    python aqua-analysis.py -l debug -c $catalog -m EC-EARTH4 -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
+    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.oce.yaml
+    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $CONFIG_DIR/config.aqua-analysis.ice.yaml
 fi
 
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
