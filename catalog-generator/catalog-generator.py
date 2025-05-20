@@ -156,17 +156,19 @@ if __name__ == '__main__':
     logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp_name'], output_dir)
 
     # Check if the file is in the catalog
-    sources = inspect_catalog(model=definitions['model'], exp=definitions['exp_name'], verbose=False)
+    sources = inspect_catalog(catalog_name=definitions['catalog'], model=definitions['model'],
+                              exp=definitions['exp_name'], verbose=False)
 
     if sources is False:
-        raise ValueError(f"Model {definitions['model']} and exp {definitions['exp_name']} not found in the catalog")
+        raise ValueError(f"Catalog {definitions['catalog']}, model {definitions['model']} and exp {definitions['exp_name']} not found in the catalog") # noqa
     else:
-        logger.debug("Sources available in catalog for model %s and exp %s: %s",
-                     definitions['model'], definitions['exp_name'], sources)
+        logger.debug("Sources available in catalog for catalog %s model %s and exp %s: %s",
+                     definitions['catalog'], definitions['model'], definitions['exp_name'], sources)
 
     for source in sources:
         if source != "lra-r100-monthly":
-            reader = Reader(model=definitions['model'], exp=definitions['exp_name'], source=source,
+            reader = Reader(catalog=definitions['catalog'], model=definitions['model'],
+                            exp=definitions['exp_name'], source=source,
                             areas=False, loglevel=loglevel)
 
     logger.info("Catalog generation completed")
