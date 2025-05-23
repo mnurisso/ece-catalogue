@@ -11,4 +11,9 @@ sources:
     driver: yaml_file_cat
     args:
         path: "{{CATALOG_DIR}}/catalog/EC-EARTH4/main.yaml"
+  ECE-FAST:
+    description: EC-EARTH4 IFS-NEMO coupled model at low resolution
+    driver: yaml_file_cat
+    args:
+        path: "{{CATALOG_DIR}}/catalog/ECE-FAST/main.yaml"
 

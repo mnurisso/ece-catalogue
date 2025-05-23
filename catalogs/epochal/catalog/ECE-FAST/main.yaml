@@ -1,0 +1,16 @@
+sources:
+  EA04:
+    description: EC-EARTH4 AMIP oifs-48 experiment with modified orography
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/EA04.yaml'
+  PA02:
+    description: EC-EARTH4 present day AMIP TL63
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/PA02.yaml'
+  PC01:
+    description: Present-day Coupled test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/PC01.yaml'

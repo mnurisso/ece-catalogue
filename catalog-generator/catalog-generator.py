@@ -27,6 +27,8 @@ def parse_arguments(arguments):
                         help='yaml configuration file')
     parser.add_argument('-d', '--description', type=str,
                         help='description')
+    parser.add_argument('-m', '--model', type=str,
+                        help='model name')
     parser.add_argument('-e', '--exp', type=str,
                         help='experiment name')
     parser.add_argument('-j', '--jinja', type=str,
@@ -51,6 +53,10 @@ if __name__ == '__main__':
     logger = log_configure(loglevel, 'EC-EARTH catalog generator')
 
     definitions = load_yaml(definitions_file)
+
+    model = get_arg(args, 'model', None)
+    if model:
+        definitions['model'] = model
 
     exp = get_arg(args, 'exp', None)
     if exp:
@@ -89,7 +95,7 @@ if __name__ == '__main__':
 
     # Build the description if not provided
     if 'description' not in definitions:
-        definitions['description'] = f'EC-EARTH {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run' # noqa
+        definitions['description'] = f'{definitions["model"]} {definitions["ifs_grid"]}/{definitions["nemo_grid"]} {definitions["exp_name"]} run' # noqa
 
     # Build the string for the frequency
     if definitions['freq'] == 'monthly':
@@ -150,17 +156,19 @@ if __name__ == '__main__':
     logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp_name'], output_dir)
 
     # Check if the file is in the catalog
-    sources = inspect_catalog(model=definitions['model'], exp=definitions['exp_name'], verbose=False)
+    sources = inspect_catalog(catalog_name=definitions['catalog'], model=definitions['model'],
+                              exp=definitions['exp_name'], verbose=False)
 
     if sources is False:
-        raise ValueError(f"Model {definitions['model']} and exp {definitions['exp_name']} not found in the catalog")
+        raise ValueError(f"Catalog {definitions['catalog']}, model {definitions['model']} and exp {definitions['exp_name']} not found in the catalog") # noqa
     else:
-        logger.debug("Sources available in catalog for model %s and exp %s: %s",
-                     definitions['model'], definitions['exp_name'], sources)
+        logger.debug("Sources available in catalog for catalog %s model %s and exp %s: %s",
+                     definitions['catalog'], definitions['model'], definitions['exp_name'], sources)
 
     for source in sources:
         if source != "lra-r100-monthly":
-            reader = Reader(model=definitions['model'], exp=definitions['exp_name'], source=source,
+            reader = Reader(catalog=definitions['catalog'], model=definitions['model'],
+                            exp=definitions['exp_name'], source=source,
                             areas=False, loglevel=loglevel)
 
     logger.info("Catalog generation completed")

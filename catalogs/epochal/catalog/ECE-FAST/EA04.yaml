@@ -1,0 +1,28 @@
+sources:
+  monthly-atm:
+    description: EC-EARTH4 AMIP oifs-48 experiment with modified orography
+    driver: netcdf
+    metadata:
+       source_grid_name: tl63
+       fixer_name: ec-earth4-ifs
+    args:
+      urlpath:
+          - '/lus/h2resw01/scratch/ecme3497/ece4/EA04/output/oifs/EA04_atm_cmip6_1m_*.nc'
+          - '/lus/h2resw01/scratch/ecme3497/ece4/EA04/output/oifs/EA04_atm_cmip6_pl_1m_*.nc'
+      chunks:
+        time: 1
+      xarray_kwargs:
+        decode_times: True
+
+  # this is here only because of the OutputSaver bug #1685
+  lra-r100-monthly:
+    driver: netcdf
+    description: LRA data monthly at r100
+    args:
+      urlpath: '/dummy/*_r100_monthly_*.nc'
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+        combine: by_coords
+    metadata:
+      source_grid_name: lon-lat
