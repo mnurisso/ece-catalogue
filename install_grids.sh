@@ -1,19 +1,18 @@
 #!/bin/bash
 
-# Simple script to install to AQUA
+# Simple script to install grids for AQUA
 # This assumes that AQUA is already installed on your system
 
-# Copy and link the files to the AQUA config directory
+# Before running this script edit the files .aqua/catalogs/hpc2020/machine.yaml
+# and the file .aqua/catalogs/hpc2020/machine.yaml  indicating the correct 
+# location for grids, weights, areas
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+set -e
+
 AQUA_DIR=~/.aqua
 
-aqua grids add -e $SCRIPT_DIR/config/grids/EC-EARTH4.yaml
-aqua fixes add -e $SCRIPT_DIR/config/fixes/EC-EARTH4.yaml
-aqua add hpc2020 -e $SCRIPT_DIR/catalogs/hpc2020
-# aqua add epochal -e $SCRIPT_DIR/catalogs/epochal
-
 # Download grids from DKRZ Swift
+# Figure out from the machine file where to store the grid data
 dst=$(grep -A 2 '^hpc2020:' $AQUA_DIR/catalogs/hpc2020/machine.yaml|tail -1| sed -E 's/.*grids:\s*(.*)/\1/')
 mkdir -p $dst/EC-EARTH4
 cd $dst
@@ -21,4 +20,4 @@ wget "https://swift.dkrz.de/v1/dkrz_a973e394-5f24-4f4d-8bbf-1a83bd387ccb/AQUA/gr
 tar xvfz EC-EARTH4.tar.gz
 rm EC-EARTH4.tar.gz
 
-echo "Installation complete"
+echo "Installation of grids complete"
