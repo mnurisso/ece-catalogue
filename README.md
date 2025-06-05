@@ -9,7 +9,7 @@ Instructions:
 
 - Install AQUA on HPC2020 following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html#installation-on-ecmwf-hpc2020)
 
-- If needed you can use the script ``install_aqua.sh`` to install AQUA in editable mode and add the hpc2020, epocal, obs catalogues
+- If needed you can use the script ``install_aqua.sh`` to install AQUA in editable mode and add the hpc2020, epochal, obs catalogues
 
 - Edit the file ``catalogs/hpc2020/machine.yaml`` setting appropriate paths where to store grids, areas and weights.
 
