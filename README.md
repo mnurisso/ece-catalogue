@@ -9,11 +9,17 @@ Instructions:
 
 - Install AQUA on HPC2020 following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html#installation-on-ecmwf-hpc2020)
 
-- Edit the file ``catalogs/hpc2020/machine.yaml`` setting appropriate paths where to store grids, areas and weights.
+- Install the catalogue in this repository in AQUA following the standard AQUA procedure. 
+  The script ``install_aqua.sh`` summarizes all needed steps and installs AQUA in editable mode and adds the hpc2020, epochal, obs catalogues
 
-- Then run the script ``install.sh`` in this directory.
+- Edit the file ``catalogs/hpc2020/machine.yaml`` setting appropriate paths where to store grids, areas and weights or override these paths for your machine directly in the ``config-aqua.yaml`` file as [described in the documentation](https://aqua.readthedocs.io/en/latest/advanced_topics.html#set-up-the-configuration-file).
+
+- If you need to download grids (If you keep the default for hpc2020 or you are running on
+  a supported machine you probably do not need this), you can use the AQUA script 
+  ``cli/grids-downloader/grids-downloader.sh`` to download them to the directory which you indicated in the previous step.
 
 EC-Earth4 sources are now availble from the EC-EARTH4 model, your experiment identifier and one of the sources defined in the catalogue (such as ``monthly-atm``).
 
 Next you can modify to your needs the job template in ``jobs/aqua_analysis_e486.job`` and run your first AQUA analysis.
-Currently to add a new experiments you can use the catalogue generato in the ``catalog-generator`` folder.
+
+Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder.
