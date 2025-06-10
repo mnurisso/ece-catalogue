@@ -107,13 +107,11 @@ diagnostics:
     #        by default)
     # --interface (custom interface file)
     config: "${AQUA_CONFIG}/diagnostics/teleconnections/cli_config_atm.yaml"
-    extra: "--ref --regrid r200"
     outname: teleconnections
   teleconnections_oce:
     script_path: "../src/aqua_diagnostics/teleconnections/cli_teleconnections.py"
     nworkers: 4
     config: "${AQUA_CONFIG}/diagnostics/teleconnections/cli_config_oce.yaml"
-    extra: "--ref --regrid r200"
     outname: teleconnections
   tropical_rainfall:
     nworkers: 16

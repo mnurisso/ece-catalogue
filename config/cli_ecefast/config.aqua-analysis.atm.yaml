@@ -74,18 +74,15 @@ diagnostics:
     script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
     config: "${AQUA_CONFIG}/diagnostics/timeseries/config_timeseries_atm.yaml"
     nworkers: 16
-    extra: "--regrid r200"
     outname: timeseries
   timeseries_oce:
     script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
     config: "${AQUA_CONFIG}/diagnostics/timeseries/config_timeseries_oce.yaml"
     nworkers: 8
-    extra: "--regrid r200"
     outname: timeseries
   seasonal_cycles:
     script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
     nworkers: 16
-    extra: "--regrid r200"
     config: "${AQUA_CONFIG}/diagnostics/timeseries/config_seasonalcycles_atm.yaml"
     outname: timeseries
   radiation-biases:
@@ -102,7 +99,6 @@ diagnostics:
   radiation-timeseries:
     script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
     nworkers: 8
-    extra: "--regrid r200"
     config: "${AQUA_CONFIG}/diagnostics/radiation/cli/config_radiation-timeseries.yaml"
     outname: radiation
   teleconnections_atm:
@@ -114,13 +110,11 @@ diagnostics:
     #        by default)
     # --interface (custom interface file)
     config: "${AQUA_CONFIG}/diagnostics/teleconnections/cli_config_atm.yaml"
-    extra: "--ref --regrid r200"
     outname: teleconnections
   teleconnections_oce:
     script_path: "../src/aqua_diagnostics/teleconnections/cli_teleconnections.py"
     nworkers: 4
     config: "${AQUA_CONFIG}/diagnostics/teleconnections/cli_config_oce.yaml"
-    extra: "--ref --regrid r200"
     outname: teleconnections
   tropical_rainfall:
     nworkers: 16
