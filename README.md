@@ -20,6 +20,6 @@ Instructions:
 
 EC-Earth4 sources are now availble from the EC-EARTH4 model, your experiment identifier and one of the sources defined in the catalogue (such as ``monthly-atm``).
 
-Next you can modify to your needs the job template in ``jobs/aqua_analysis_e486.job`` and run your first AQUA analysis.
+Next you can modify to your needs the job template in ``jobs/aqua_analysis.tmpl`` and run your first AQUA analysis.
 
 Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder.
