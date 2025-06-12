@@ -8,6 +8,7 @@ sources:
     description: IFS 2D atmospheric data on {{ ifs_grid }} grid.
     driver: netcdf
     metadata:
+      time_coder: 's'
       source_grid_name: {{ ifs_grid }}
       fixer_name: {{ ifs_fixer }}
     args:
@@ -24,6 +25,7 @@ sources:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
+      time_coder: 's'
       source_grid_name: {{ nemo_grid }}-ece
       fixer_name: {{ nemo_fixer }}
     args:
@@ -38,6 +40,7 @@ sources:
     description: NEMO ice output
     driver: netcdf
     metadata:
+      time_coder: 's'
       source_grid_name: {{ nemo_grid }}-ece-ice
       fixer_name: {{ ice_fixer }}
     args:
@@ -60,4 +63,5 @@ sources:
         decode_times: true
         combine: by_coords
     metadata:
+      time_coder: 's'
       source_grid_name: lon-lat
