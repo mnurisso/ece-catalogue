@@ -1,3 +1,8 @@
+freja:
+  paths:
+    grids: /home/rossby/AQUA_DATA/grids
+    weights: /home/rossby/AQUA_DATA/weights
+    areas: /home/rossby/AQUA_DATA/areas
 hpc2020:
   paths:
     grids: /ec/res4/hpcperm/ccjh/aqua_data/grids

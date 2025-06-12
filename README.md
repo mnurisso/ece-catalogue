@@ -7,12 +7,12 @@ The needed grids and fixes are now in the AQUA main.
 Instructions:
 -------------
 
-- Install AQUA on HPC2020 following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html#installation-on-ecmwf-hpc2020)
+- Install AQUA on on your machine (e.g. HPC2020) following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html)
 
 - Install the catalogue in this repository in AQUA following the standard AQUA procedure. 
-  The script ``install_aqua.sh`` summarizes all needed steps and installs AQUA in editable mode and adds the hpc2020, epochal, obs catalogues
+  The script ``install_aqua.sh`` summarizes all needed steps and installs AQUA in editable mode and adds the ece4-tuning, epochal, obs catalogues
 
-- Edit the file ``catalogs/hpc2020/machine.yaml`` setting appropriate paths where to store grids, areas and weights or override these paths for your machine directly in the ``config-aqua.yaml`` file as [described in the documentation](https://aqua.readthedocs.io/en/latest/advanced_topics.html#set-up-the-configuration-file).
+- Edit the file ``catalogs/ece4-tuning/machine.yaml`` setting appropriate paths where to store grids, areas and weights or override these paths for your machine directly in the ``config-aqua.yaml`` file as [described in the documentation](https://aqua.readthedocs.io/en/latest/advanced_topics.html#set-up-the-configuration-file).
 
 - If you need to download grids (If you keep the default for hpc2020 or you are running on
   a supported machine you probably do not need this), you can use the AQUA script 

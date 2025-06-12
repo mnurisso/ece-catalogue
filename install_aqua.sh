@@ -21,7 +21,7 @@ MACHINE=hpc2020
 # Copy and link the files to the AQUA config directory
 aqua install $MACHINE -e $AQUA/config 
 aqua add epochal -e $SCRIPT_DIR/catalogs/epochal
-aqua add hpc2020 -e $SCRIPT_DIR/catalogs/hpc2020
+aqua add ece4-tuning -e $SCRIPT_DIR/catalogs/ece4-tuning
 
 # Add observations.
 # If you have separately cloned the ClimateDT catalogue (https://github.com/DestinE-Climate-DT/Climate-DT-catalog) 
