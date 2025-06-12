@@ -7,7 +7,7 @@ The needed grids and fixes are now in the AQUA main.
 Instructions:
 -------------
 
-- Install AQUA on on your machine (e.g. HPC2020) following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html)
+- Install AQUA on your machine (e.g. HPC2020) following carefully the specific instructions in the [AQUA documentation](https://aqua.readthedocs.io/en/latest/installation.html)
 
 - Install the catalogue in this repository in AQUA following the standard AQUA procedure. 
   The script ``install_aqua.sh`` summarizes all needed steps and installs AQUA in editable mode and adds the ece4-tuning, epochal, obs catalogues
