@@ -65,7 +65,6 @@ diagnostics:
   global_biases:
     nworkers: 16
     script_path: "../src/aqua_diagnostics/global_biases/cli_global_biases.py"
-    extra: "--regrid r200"
     config: "${AQUA_CONFIG}/diagnostics/global_biases/cli/config_global_biases.yaml"
   timeseries_atm:
     script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
@@ -85,7 +84,6 @@ diagnostics:
   radiation-biases:
     script_path: "../src/aqua_diagnostics/global_biases/cli_global_biases.py"
     nworkers: 8
-    extra: "--regrid r200"
     config: "${AQUA_CONFIG}/diagnostics/radiation/cli/config_radiation-biases.yaml"
     outname: radiation
   radiation-boxplots:
@@ -125,12 +123,10 @@ diagnostics:
   ocean3d_drift:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 8
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.drift.yaml"
   ocean3d_circulation:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 4
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.circulation.yaml"
   seaice_volume:
     script_path: "seaice/cli/cli_seaice.py"
@@ -140,20 +136,16 @@ diagnostics:
     #               (default is False)
     # --config (seaice config file)
     # --regrid (regrid data to a different grid)
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Volume.yaml"
   seaice_thick:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Thickness.yaml"
   seaice_conc:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Concentration.yaml"
   seaice_extent:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
-    extra: "--regrid=r200"
     config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Extent.yaml"
