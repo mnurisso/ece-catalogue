@@ -24,3 +24,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/tuc1.yaml'
+  ll00:
+    description: ECE-FAST tuning coupled run ll00
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/ll00.yaml'
