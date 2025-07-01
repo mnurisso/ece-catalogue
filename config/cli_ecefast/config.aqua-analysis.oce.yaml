@@ -118,11 +118,11 @@ diagnostics:
   ocean3d_drift:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.drift.yaml"
+    config: "${AQUA_CONFIG}/diagnostics/ocean3d/config.drift.yaml"
   ocean3d_circulation:
     script_path: "ocean3d/cli/cli_ocean3d.py"
     nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.circulation.yaml"
+    config: "${AQUA_CONFIG}/diagnostics/ocean3d/config.circulation.yaml"
   seaice_volume:
     script_path: "seaice/cli/cli_seaice.py"
     nworkers: 4
