@@ -28,6 +28,7 @@ amip=false
 
 cd <PATH_TO_AQUA>/cli/aqua-analysis
 OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
+mkdir -p $OUTDIR
 CONFIG_DIR=<PATH_TO_ECE4_REPO>/config # note the change of path from the previous version
 
 if [ "$model" = "EC-EARTH4" ]; then
@@ -38,6 +39,7 @@ elif [ "$model" = "ECE-FAST" ]; then
     configatm=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.atm.yaml
     configoce=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.oce.yaml
     configice=$CONFIG_DIR/cli_ecefast/config.aqua-analysis.ice.yaml
+    export AQUA_CONFIG=$CONFIG_DIR/config_ecefast
 else
     echo "Unknown model $model"
     exit 1
