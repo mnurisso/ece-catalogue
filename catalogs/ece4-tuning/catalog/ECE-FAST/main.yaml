@@ -19,3 +19,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/t2pp.yaml'
+  tuc1:
+    description: ECE-FAST tuning coupled run tuc1
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/tuc1.yaml'
