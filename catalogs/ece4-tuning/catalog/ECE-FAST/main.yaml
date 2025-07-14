@@ -29,3 +29,18 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/ll00.yaml'
+  lltu:
+    description: ECE-FAST tuning amip run lltu
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/lltu.yaml'
+  llv7:
+    description: ECE-FAST tuning amip run llv7 - net_toa tuning target
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/llv7.yaml'
+  ltu7:
+    description: ECE-FAST tuning coupled run ltu7
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/ltu7.yaml'

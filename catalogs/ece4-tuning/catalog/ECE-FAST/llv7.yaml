@@ -1,0 +1,36 @@
+plugins:
+  source:
+    - module: intake_xarray
+
+sources:
+
+  monthly-atm:
+    description: IFS 2D atmospheric data on tl63 grid.
+    driver: netcdf
+    metadata:
+      time_coder: 's'
+      source_grid_name: tl63
+      fixer_name: ec-earth4-ifs
+    args:
+      urlpath:
+          - /lus/h2resw01/scratch/ccff/ece4/llv7/output/oifs/llv7_atm_cmip6_1m*.nc
+          - /lus/h2resw01/scratch/ccff/ece4/llv7/output/oifs/llv7_atm_cmip6_pl_1m*.nc
+      chunks:
+        time: 1
+      xarray_kwargs:
+        decode_times: True
+
+
+  # this is here only because of the OutputSaver bug #1685
+  lra-r100-monthly:
+    driver: netcdf
+    description: LRA data monthly at r100
+    args:
+      urlpath: '/dummy/*_r100_monthly_*.nc'
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+        combine: by_coords
+    metadata:
+      time_coder: 's'
+      source_grid_name: lon-lat
