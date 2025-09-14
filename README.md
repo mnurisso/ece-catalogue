@@ -22,4 +22,7 @@ EC-Earth4 sources are now availble from the EC-EARTH4 model, your experiment ide
 
 Next you can modify to your needs the job template in ``jobs/aqua_analysis.tmpl`` and run your first AQUA analysis.
 
-Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder.
+Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder. Edit the `config.yaml` file in that directory to this end.
+
+
+
