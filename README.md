@@ -24,5 +24,12 @@ Next you can modify to your needs the job template in ``jobs/aqua_analysis.tmpl`
 
 Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder. Edit the `config.yaml` file in that directory to this end.
 
+Please notice: there is currently an [issue](https://github.com/DestinE-Climate-DT/AQUA/issues/2011) in how AQUA processes dates in EC-Earth4 atmospheric output which requires the `center_time` option for timeseries and seasonal cycles to be se to false.
+Please edit the files 
 
+- `.aqua/diagnostics/timeseries/config_timeseries_atm.yaml`
+-  `.aqua/diagnostics/timeseries/config_seasonalcycles_atm.yaml`
+-  `.aqua/diagnostics/radiation/config_radiation-timeseries.yaml`
+  
+and set `center_time: false`
 
