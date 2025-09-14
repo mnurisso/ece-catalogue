@@ -22,7 +22,7 @@ EC-Earth4 sources are now availble from the EC-EARTH4 model, your experiment ide
 
 Next you can modify to your needs the job template in ``jobs/aqua_analysis.tmpl`` and run your first AQUA analysis.
 
-Currently to add a new experiments you can use the catalogue generator in the ``catalog-generator`` folder. Edit the `config.yaml` file in that directory to this end.
+To add a new experiment to the catalogue you can use the catalogue generator in the ``catalog-generator`` folder. Edit the `config.yaml` file in that directory to this end.
 
 Please notice: there is currently an [issue](https://github.com/DestinE-Climate-DT/AQUA/issues/2011) in how AQUA processes dates in EC-Earth4 atmospheric output which requires the `center_time` option for timeseries and seasonal cycles to be se to false.
 Please edit the files 
