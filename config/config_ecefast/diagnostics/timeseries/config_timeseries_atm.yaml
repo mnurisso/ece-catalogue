@@ -50,7 +50,6 @@ diagnostics:
         standard_name: "tprate"
         long_name: "Precipitation"
         units: "mm/day"
-        regions: ['tropics', 'europe']
   
   gregory:
     run: false # Run by the Radiation by default
