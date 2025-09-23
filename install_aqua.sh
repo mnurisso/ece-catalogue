@@ -28,4 +28,7 @@ aqua add ece4-tuning -e $SCRIPT_DIR/catalogs/ece4-tuning
 # then use "aqua add obs -e $DIR_OF_YOUR_CATALOGUE/catalogs/obs
 aqua add obs
 
+# If you do not have access to default grids path, set this one
+# aqua grids set /ec/res4/hpcperm/itmn/data/aqua
+
 echo "Installation complete"
