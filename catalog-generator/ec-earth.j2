@@ -34,7 +34,6 @@ sources:
         time_counter: 1
       xarray_kwargs:
         decode_times: True
-        #use_cftime: True
 
   {{ freq }}-ice:
     description: NEMO ice output
@@ -49,7 +48,6 @@ sources:
         time_counter: 1
       xarray_kwargs:
         decode_times: True
-        #use_cftime: True
 {% endif %}
 
   # this is here only because of the OutputSaver bug #1685
