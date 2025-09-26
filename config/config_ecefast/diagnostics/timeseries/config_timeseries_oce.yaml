@@ -33,13 +33,13 @@ diagnostics:
   timeseries:
     run: true
     diagnostic_name: 'ocean'
-    variables: ['tos', 'siconc']
+    variables: ['tos']
     center_time: false
     params:
       default:
         hourly: False
         daily: False
-        monthly: True
+        monthly: False
         annual: True
         std_startdate: '19900101'
         std_enddate: '20201231'
@@ -49,7 +49,7 @@ diagnostics:
   seasonalcycles:
     run: false
     diagnostic_name: 'ocean'
-    variables: ['tos', 'siconc']
+    variables: ['tos']
     params:
       default:
         std_startdate: '1990-01-01'

@@ -40,7 +40,7 @@ diagnostics:
       default:
         hourly: False
         daily: False
-        monthly: True
+        monthly: False
         annual: True
         std_startdate: '20000101'
         std_enddate: '20201231'

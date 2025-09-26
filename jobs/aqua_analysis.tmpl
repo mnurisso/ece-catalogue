@@ -26,10 +26,9 @@ tykky activate aqua
 
 amip=false
 
-cd <PATH_TO_AQUA>/cli/aqua-analysis
 OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
 mkdir -p $OUTDIR
-CONFIG_DIR=<PATH_TO_ECE4_REPO>/config # note the change of path from the previous version
+CONFIG_DIR=<PATH_TO_ECE-CATALOG_REPO>/config # note the change of path from the previous version
 
 if [ "$model" = "EC-EARTH4" ]; then
     configatm=$CONFIG_DIR/cli/config.aqua-analysis.atm.yaml
@@ -46,10 +45,10 @@ else
 fi
 
 # We use three different scripts because they all use different sources
-python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm --regrid $regrid
+aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm --regrid $regrid
 if [ "$amip" = false ]; then
-    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce --regrid $regrid
-    python aqua-analysis.py -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce --regrid $regrid
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid
 fi
 
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
