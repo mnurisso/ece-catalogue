@@ -4,51 +4,51 @@ plugins:
 
 sources:
 
-  {{ freq }}-atm:
-    description: IFS 2D atmospheric data on {{ ifs_grid }} grid.
+  monthly-atm:
+    description: IFS 2D atmospheric data on tl63 grid.
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: {{ ifs_grid }}
-      fixer_name: {{ ifs_fixer }}
+      source_grid_name: tl63
+      fixer_name: ec-earth4-ifs
     args:
       urlpath:
-          - {{ path }}/{{ exp }}/output/oifs/{{ exp }}_atm_cmip6_{{ exp_freq }}*.nc
-          - {{ path }}/{{ exp }}/output/oifs/{{ exp }}_atm_cmip6_pl_{{ exp_freq }}*.nc
+          - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_1m*.nc
+          - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_pl_1m*.nc
       chunks:
         time: 1
       xarray_kwargs:
         decode_times: True
 
-{% if not amip %}
-  {{ freq }}-oce:
+  monthly-oce:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: {{ nemo_grid }}-ece
-      fixer_name: {{ nemo_fixer }}
+      source_grid_name: ORCA2-ece
+      fixer_name: ec-earth4-nemo
     args:
-      urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_oce_{{ exp_freq }}_T_*.nc
+      urlpath: /lus/h2resw01/scratch/ccpd/ece4/T009/output/nemo/T009_oce_1m_T_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
         decode_times: True
+        #use_cftime: True
 
-  {{ freq }}-ice:
+  monthly-ice:
     description: NEMO ice output
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: {{ nemo_grid }}-ece-ice
-      fixer_name: {{ ice_fixer }}
+      source_grid_name: ORCA2-ece-ice
+      fixer_name: ec-earth4-nemo-ice
     args:
-      urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_ice_{{ exp_freq }}_*.nc
+      urlpath: /lus/h2resw01/scratch/ccpd/ece4/T009/output/nemo/T009_ice_1m_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
         decode_times: True
-{% endif %}
+        #use_cftime: True
 
   # this is here only because of the OutputSaver bug #1685
   lra-r100-monthly:

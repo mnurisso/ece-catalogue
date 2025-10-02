@@ -44,3 +44,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/ltu7.yaml'
+  T009:
+    description: EC-FAST scaling present-day
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T009.yaml'
+  LC05:
+    description: ECE-FAST with PALEORCA2 test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC05.yaml'

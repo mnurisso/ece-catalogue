@@ -5,16 +5,15 @@
 # AQUA definitions
 catalog: ece4-tuning # ece4-tuning and epochal available
 model: EC-EARTH4 # EC-EARTH4 and ECE-FAST available
-exp_name: e486 # name that will appear in the catalogue
+exp_name: e486 # name that will appear in the catalogue, can be customized
 
 # EC-EARTH4 (and ECE-FAST) specific definitions
 exp: E486  # name used in EC-EARTH4
 amip: false  # set to true if the experiment is an AMIP run
 ifs_grid: tl255  # tl255, tl63 and tl159 available
-nemo_grid: eORCA1  # ORCA2 and eORCA1 available
+nemo_grid: eORCA1  # ORCA2, eORCA1, PALEORCA2-pd and PALEORCA2-eo are available
 freq: monthly # monthly or yearly available
 path: /ec/res4/scratch/ccjh/ece4 # main output base path, data will be in $path/$exp/output/oifs, $path/$exp/output/nemo
 
 # Optional
 description: 'EC-EARTH4 catalogue test run' # if commented out, it will be built by the script
-# destine: True # True by default, set to False if you don't want the destine fixer (currently no effect)
