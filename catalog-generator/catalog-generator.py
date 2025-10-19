@@ -10,6 +10,8 @@ import sys
 import argparse
 import jinja2
 
+from filelock import FileLock
+
 from aqua import Reader, inspect_catalog
 from aqua.util import ConfigPath, load_yaml, dump_yaml, get_arg
 from aqua.logger import log_configure
@@ -142,16 +144,16 @@ if __name__ == '__main__':
     main_yaml_path = os.path.join(output_dir, 'main.yaml')
     logger.debug("Main file: %s", main_yaml_path)
 
-    main_yaml = load_yaml(main_yaml_path)
-    main_yaml['sources'][definitions['exp_name']] = {
-        'description': definitions['description'],
-        'driver': 'yaml_file_cat',
-        'args': {
-            'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp_name']}.yaml"
+    with FileLock(main_yaml_path + '.lock'):
+        main_yaml = load_yaml(main_yaml_path)
+        main_yaml['sources'][definitions['exp_name']] = {
+            'description': definitions['description'],
+            'driver': 'yaml_file_cat',
+            'args': {
+                'path': f"{{{{CATALOG_DIR}}}}/{definitions['exp_name']}.yaml"
+            }
         }
-    }
-
-    dump_yaml(main_yaml_path, main_yaml)
+        dump_yaml(main_yaml_path, main_yaml)
 
     logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp_name'], output_dir)
 
