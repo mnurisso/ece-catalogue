@@ -45,7 +45,7 @@ sources:
     args:
       path: '{{CATALOG_DIR}}/ltu7.yaml'
   T009:
-    description: EC-FAST scaling present-day
+    description: ECE-FAST scaling present-day
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/T009.yaml'
@@ -54,3 +54,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/LC05.yaml'
+  T010:
+    description: ECE-FAST scaling present-day
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T010.yaml'
+  FWD4:
+    description: ECE-FAST tuning FWD4 run (eocene)
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/FWD4.yaml'
