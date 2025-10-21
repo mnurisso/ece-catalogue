@@ -28,6 +28,7 @@ output:
   save_pdf: true
   save_png: true
   dpi: 300
+  create_catalog_entry: false
 
 diagnostics:
   timeseries:
