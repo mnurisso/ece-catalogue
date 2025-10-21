@@ -33,3 +33,12 @@ Please edit the files
   
 and set `center_time: false`
 
+Folders structure:
+------------------
+
+- `catalog-generator/` : contains the code to generate the catalogue entries for EC-Earth4 and ECE-FAST experiments
+- `catalogs/`: contains the AQUA catalogue contained in this repository
+- `config/`: contains example configuration files for AQUA analysis of EC-Earth4 experiments. If you find that the configuration files are not aligned to the main branch of AQUA please open an issue.
+- `diagnostic-templates/`: contains example of a CLI to introduce new diagnostics for EC-Earth4 experiments in the AQUA analysis
+- `jobs/`: contains a template for an AQUA job script to run analysis on EC-Earth4 experiments
+- `install_aqua.sh`: script to install AQUA with the EC-Earth4 catalogue
