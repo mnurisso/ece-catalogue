@@ -48,7 +48,7 @@ diagnostics:
   #       "tropical_rainfall", "ecmean", "ocean3d_drift", "ocean3d_circulation",
   #       "seaice_volume", "seaice_thick", "seaice_conc", "seaice_extent"]
 
-  run: ["ocean3d_drift", "ocean3d_circulation", "teleconnections_oce", "timeseries_oce"]
+  run: ["ocean3d_drift", "ocean3d_circulation", "timeseries_oce"]
 
   # List of diagnostics
 
