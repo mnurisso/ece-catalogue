@@ -44,3 +44,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/e495.yaml'
+  LC07:
+    description: EC-EARTH4 catalogue test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC07.yaml'
+  FWD4:
+    description: Eocene Paleorca test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/FWD4.yaml'
