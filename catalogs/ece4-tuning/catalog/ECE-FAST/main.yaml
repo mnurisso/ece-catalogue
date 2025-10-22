@@ -49,8 +49,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/T009.yaml'
-  LC05:
-    description: ECE-FAST with PALEORCA2 test run
+  LC07:
+    description: EC-EARTH4 catalogue test run
     driver: yaml_file_cat
     args:
-      path: '{{CATALOG_DIR}}/LC05.yaml'
+      path: '{{CATALOG_DIR}}/LC07.yaml'
+  FWD4:
+    description: Eocene Paleorca test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/FWD4.yaml'
