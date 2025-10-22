@@ -1,6 +1,6 @@
 plugins:
   source:
-    - module: intake_xarray
+  - module: intake_xarray
 
 sources:
 
@@ -8,38 +8,39 @@ sources:
     description: IFS 2D atmospheric data on tl63 grid.
     driver: netcdf
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: tl63
       fixer_name: ec-earth4-ifs
     args:
       urlpath:
-          - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_1m*.nc
-          - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_pl_1m*.nc
+      - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_1m*.nc
+      - /lus/h2resw01/scratch/ccpd/ece4/T009/output/oifs/T009_atm_cmip6_pl_1m*.nc
       chunks:
         time: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
 
   monthly-oce:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: ORCA2-ece
       fixer_name: ec-earth4-nemo
     args:
-      urlpath: /lus/h2resw01/scratch/ccpd/ece4/T009/output/nemo/T009_oce_1m_T_*.nc
+      urlpath: 
+        /lus/h2resw01/scratch/ccpd/ece4/T009/output/nemo/T009_oce_1m_T_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
         #use_cftime: True
 
   monthly-ice:
     description: NEMO ice output
     driver: netcdf
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: ORCA2-ece-ice
       fixer_name: ec-earth4-nemo-ice
     args:
@@ -47,7 +48,7 @@ sources:
       chunks:
         time_counter: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
         #use_cftime: True
 
   # this is here only because of the OutputSaver bug #1685
@@ -55,11 +56,105 @@ sources:
     driver: netcdf
     description: LRA data monthly at r100
     args:
-      urlpath: '/dummy/*_r100_monthly_*.nc'
+      urlpath: /dummy/*_r100_monthly_*.nc
       chunks: {}
       xarray_kwargs:
         decode_times: true
         combine: by_coords
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: lon-lat
+  aqua-radiation-timeseries:
+    driver: netcdf
+    description: AQUA diagnostic radiation data for product timeseries
+    args:
+      urlpath: 
+        /ec/res4/scratch/ecme3497/aqua-analysis/ece4-tuning/ECE-FAST/T009/{{realization}}/radiation/netcdf/radiation.timeseries.ece4-tuning.ECE-FAST.T009.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: monthly
+        type: str
+        allowed:
+        - monthly
+        - annual
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global
+  aqua-atmosphere-timeseries:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere data for product timeseries
+    args:
+      urlpath: 
+        /ec/res4/scratch/ecme3497/aqua-analysis/ece4-tuning/ECE-FAST/T009/{{realization}}/timeseries/netcdf/atmosphere.timeseries.ece4-tuning.ECE-FAST.T009.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: monthly
+        type: str
+        allowed:
+        - monthly
+        - annual
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global
+  aqua-ocean-timeseries:
+    driver: netcdf
+    description: AQUA diagnostic ocean data for product timeseries
+    args:
+      urlpath: 
+        /ec/res4/scratch/ecme3497/aqua-analysis/ece4-tuning/ECE-FAST/T009/{{realization}}/timeseries/netcdf/ocean.timeseries.ece4-tuning.ECE-FAST.T009.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: annual
+        type: str
+        allowed:
+        - annual
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global
+        - northmidlatitudes
+        - southmidlatitudes

@@ -54,13 +54,18 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/LC05.yaml'
-  T010:
-    description: ECE-FAST scaling present-day
+  TN10:
+    description: ECE-FAST ntau test
     driver: yaml_file_cat
     args:
-      path: '{{CATALOG_DIR}}/T010.yaml'
+      path: '{{CATALOG_DIR}}/TN10.yaml'
+  LC07:
+    description: EC-EARTH4 catalogue test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC07.yaml'
   FWD4:
-    description: ECE-FAST tuning FWD4 run (eocene)
+    description: Eocene Paleorca test run
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/FWD4.yaml'
