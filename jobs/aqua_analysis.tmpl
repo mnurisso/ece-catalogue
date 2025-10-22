@@ -14,7 +14,7 @@
 ###SBATCH --mem=239G
 set -eo
 
-catalog=<catalog> # available are ece4-tuning, epochal
+catalog=<catalog> # available are ece4-tuning, epochal, antarctic-mwe
 model=<model> # available are EC-EARTH4, ECE-FAST
 exp=<experiment>
 regrid=<regrid> # we suggest 'r100' for EC-EARTH4 and 'r200' for ECE-FAST. False to deactivate regridding
@@ -30,7 +30,12 @@ OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
 mkdir -p $OUTDIR
 CONFIG_DIR=<PATH_TO_ECE-CATALOG_REPO>/config # note the change of path from the previous version
 
-if [ "$model" = "EC-EARTH4" ]; then
+if [ "$model" = "EC-EARTH4" ] && [[ "$catalog" = "$antarctic-mwe" ]]; then
+    configatm=$CONFIG_DIR/cli_antarctic-mwe/config.aqua-analysis.atm.yaml
+    configoce=$CONFIG_DIR/cli_antarctic-mwe/config.aqua-analysis.oce.yaml
+    configice=$CONFIG_DIR/cli_antarctic-mwe/config.aqua-analysis.ice.yaml
+    export AQUA_CONFIG=$CONFIG_DIR/config_antarctic-mwe
+elif [ "$model" = "EC-EARTH4" ]; then
     configatm=$CONFIG_DIR/cli/config.aqua-analysis.atm.yaml
     configoce=$CONFIG_DIR/cli/config.aqua-analysis.oce.yaml
     configice=$CONFIG_DIR/cli/config.aqua-analysis.ice.yaml

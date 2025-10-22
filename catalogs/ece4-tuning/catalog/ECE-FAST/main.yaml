@@ -45,10 +45,20 @@ sources:
     args:
       path: '{{CATALOG_DIR}}/ltu7.yaml'
   T009:
-    description: EC-FAST scaling present-day
+    description: ECE-FAST scaling present-day
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/T009.yaml'
+  LC05:
+    description: ECE-FAST with PALEORCA2 test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC05.yaml'
+  T010:
+    description: ECE-FAST scaling present-day
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T010.yaml'
   LC07:
     description: EC-EARTH4 catalogue test run
     driver: yaml_file_cat

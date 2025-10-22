@@ -1,0 +1,11 @@
+sources:
+  exp1:
+    description: An experiment
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/exp1.yaml'
+  t008:
+    description: EC-EARTH4 antarctic  catalogue test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/t008.yaml'
