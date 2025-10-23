@@ -69,3 +69,8 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/FWD4.yaml'
+  T020:
+    description: ECE-FAST new tuning configuration
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T020.yaml'
