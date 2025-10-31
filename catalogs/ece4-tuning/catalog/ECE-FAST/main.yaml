@@ -74,3 +74,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/T020.yaml'
+  T021:
+    description: EC-EARTH4 tuning test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T021.yaml'
+  LC21:
+    description: ECE-FAST catalogue tuning run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC21.yaml'
