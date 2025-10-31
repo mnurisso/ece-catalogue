@@ -9,15 +9,17 @@
 #SBATCH --chdir=/ec/res4/scratch/<YOURUSER>/aqua
 #SBATCH --qos=express
 #SBATCH --time=02:30:00
-#SBATCH --mail-type=FAIL
-
-###SBATCH --mem=239G
+#SBATCH --mem=230G
+###SBATCH --mail-type=FAIL
 set -eo
 
 catalog=<catalog> # available are ece4-tuning, epochal, antarctic-mwe
 model=<model> # available are EC-EARTH4, ECE-FAST
 exp=<experiment>
-regrid=<regrid> # we suggest 'r100' for EC-EARTH4 and 'r200' for ECE-FAST. False to deactivate regridding
+regrid=<regrid> # we suggest 'r100' for EC-EARTH4 and 'r200' for ECE-FAST. False to deactivate regridding. ECmean will not work with `r200` 
+startdate=<startdate>
+enddate=<enddate>
+PUSH_ANALYSIS_DIR=/ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
 
 # This for HPC2020, if you have a conda environment, you should comment this line
 # and load the environment in the next line
@@ -26,9 +28,9 @@ tykky activate aqua
 
 amip=false
 
-OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
+OUTDIR=/ec/res4/scratch/ccpd/aqua-analysis
 mkdir -p $OUTDIR
-CONFIG_DIR=<PATH_TO_ECE-CATALOG_REPO>/config # note the change of path from the previous version
+CONFIG_DIR=/home/ccpd/perm/ece-catalogue/config # note the change of path from the previous version
 
 if [ "$model" = "EC-EARTH4" ] && [[ "$catalog" = "$antarctic-mwe" ]]; then
     configatm=$CONFIG_DIR/cli_antarctic-mwe/config.aqua-analysis.atm.yaml
@@ -50,11 +52,10 @@ else
 fi
 
 # We use three different scripts because they all use different sources
-aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm --regrid $regrid
+aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm --regrid $regrid --startdate $startdate --enddate $enddate
 if [ "$amip" = false ]; then
-    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce --regrid $regrid
-    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce --regrid $regrid --startdate $startdate --enddate $enddate
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid --startdate $startdate --enddate $enddate
 fi
 
-#cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
-#./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
+bash ${PUSH_ANALYSIS_DIR}/push_analysis.sh --rsync aqua@climate-web.polito.it:ece4 -c /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis  ece4-tuning/$model/$exp/r1
