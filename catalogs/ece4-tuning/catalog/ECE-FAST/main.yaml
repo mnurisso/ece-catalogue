@@ -69,3 +69,13 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/FWD4.yaml'
+  pic1:
+    description: EC-EARTH4 test preindustrial
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/pic1.yaml'
+  pic2:
+    description: EC-EARTH4 test preindustrial
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/pic2.yaml'
