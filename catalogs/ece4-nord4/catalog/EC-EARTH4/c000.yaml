@@ -1,0 +1,131 @@
+plugins:
+  source:
+  - module: intake_xarray
+
+sources:
+
+  monthly-atm:
+    description: ECE4 c000 2D and 3D monthly data
+    driver: netcdf
+    metadata:
+      source_grid_name: tl255
+      fixer_name: ec-earth4-ifs
+    args:
+      urlpath:
+      - /esarchive/exp/ecearth4/t0lo_bkp/original_files/output/19900101/fc00/output/*/oifs/*1m*nc
+         # - /esarchive/exp/ecearth4/t0lo_bkp/original_files/output/19900101/fc00/output/*/nemo/*U*nc
+      chunks:
+        time: 1
+      xarray_kwargs:
+        decode_times: true
+
+  monthly-ice:
+    description: NEMO ice output
+    driver: netcdf
+    metadata:
+      source_grid_name: eORCA1-ece-ice
+      fixer_name: ec-earth4-nemo-ice
+    args:
+      urlpath:
+      - /esarchive/exp/ecearth4/t0lo_bkp/original_files/output/19900101/fc00/output/001/oifs/*saveic*nc
+      chunks:
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: true
+        #use_cftime: True
+
+  monthly-oce:
+    description: NEMO ocean T output
+    driver: netcdf
+    metadata:
+      source_grid_name: eORCA1-ece
+      fixer_name: ec-earth4-nemo
+    args:
+      urlpath:
+      - /esarchive/exp/ecearth4/t0lo_bkp/original_files/output/19900101/fc00/output/001/nemo/*.nc
+         # - '/esarchive/exp/ecearth4/t0ia/original_files/output/19900101/fc00/output/002/nemo/*.nc'
+         # - '/esarchive/exp/ecearth4/t0ia/original_files/output/19900101/fc00/output/003/nemo/*.nc'
+         # - '/esarchive/exp/ecearth4/t0ia/original_files/output/19900101/fc00/output/004/nemo/*.nc'
+         # - '/esarchive/exp/ecearth4/t0ia/original_files/output/19900101/fc00/output/005/nemo/*.nc'
+      chunks:
+        time_counter: 1
+      xarray_kwargs:
+        decode_times: true
+        #use_cftime: True
+
+  # this is here only because of the OutputSaver bug #1685
+  lra-r100-monthly:
+    driver: netcdf
+    description: LRA data monthly at r100
+    args:
+      urlpath: /dummy/*_r100_monthly_*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+        combine: by_coords
+    metadata:
+      source_grid_name: lon-lat
+  aqua-atmosphere-timeseries:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere data for product timeseries
+    args:
+      urlpath: 
+        /esarchive/scratch/sghosh/EERIE/output/ece4-nord4/EC-EARTH4/c000/{{realization}}/timeseries/netcdf/atmosphere.timeseries.ece4-nord4.EC-EARTH4.c000.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: monthly
+        type: str
+        allowed:
+        - monthly
+        - annual
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global
+        - tropics
+        - europe
+  aqua-radiation-timeseries:
+    driver: netcdf
+    description: AQUA diagnostic radiation data for product timeseries
+    args:
+      urlpath: 
+        /esarchive/scratch/sghosh/EERIE/output/ece4-nord4/EC-EARTH4/c000/{{realization}}/radiation/netcdf/radiation.timeseries.ece4-nord4.EC-EARTH4.c000.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: monthly
+        type: str
+        allowed:
+        - monthly
+        - annual
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global

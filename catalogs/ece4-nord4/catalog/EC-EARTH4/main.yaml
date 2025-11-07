@@ -1,0 +1,6 @@
+sources:
+  c000:
+    description: TL255 c000 base coupled experiment
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/c000.yaml'
