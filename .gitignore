@@ -1,0 +1,8 @@
+*.nc
+*.grb
+*.log
+*.err
+*.lock
+*.job
+*.out
+*.err

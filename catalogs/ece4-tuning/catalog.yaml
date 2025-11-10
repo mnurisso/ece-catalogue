@@ -3,7 +3,7 @@ metadata:
     DATA_PATH:
       type: str
       description: the path to observational datasets
-      default: /ec/res4/scratch/itmn/data/AQUA/datasets
+      default: /ec/res4/scratch/itmn/data/aqua-dvc/datasets
 
 sources:
   EC-EARTH4:

@@ -28,13 +28,12 @@ output:
   save_pdf: true
   save_png: true
   dpi: 300
-  create_catalog_entry: false
 
 diagnostics:
   timeseries:
     run: true
-    diagnostic_name: 'ocean'
-    variables: ['tos']
+    diagnostic_name: 'atmosphere'
+    variables: ['2t', 'ie', 'msl', 'tprate', 'tcc']
     center_time: false
     params:
       default:
@@ -44,14 +43,24 @@ diagnostics:
         annual: True
         std_startdate: '19900101'
         std_enddate: '20201231'
-      tos:
-        regions: ['nh', 'sh']
+      tnlwrf+tnswrf:
+        standard_name: "net_top_radiation"
+        long_name: "Net top radiation"
+      tprate:
+        standard_name: "tprate"
+        long_name: "Precipitation"
+        units: "mm/day"
   
-  seasonalcycles:
-    run: false
-    diagnostic_name: 'ocean'
-    variables: ['tos']
-    params:
-      default:
-        std_startdate: '1990-01-01'
-        std_enddate: '2020-12-31'
+  gregory:
+    run: false # Run by the Radiation by default
+    diagnostic_name: 'timeseries'
+    t2m: '2t'
+    net_toa_name: 'tnlwrf+tnswrf'
+    monthly: true
+    annual: true
+    std: true
+    std_startdate: '19900101'
+    std_enddate: '20201231'
+    # Gregory needs 2 datasets and do not care about the references block above
+    t2m_ref: {'catalog': 'obs', 'model': 'ERA5', 'exp': 'era5', 'source': 'monthly'}
+    net_toa_ref: {'catalog': 'obs', 'model': 'CERES', 'exp': 'ebaf-toa42', 'source': 'monthly'}

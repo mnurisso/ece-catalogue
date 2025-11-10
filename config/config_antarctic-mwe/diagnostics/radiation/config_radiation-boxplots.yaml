@@ -40,5 +40,4 @@ diagnostics:
   boxplots:
     run: true
     diagnostic_name: 'radiation'
-    variables:  
-      - ['-tnlwrf', 'tnswrf']
+    variables:  ['-tnlwrf', 'tnswrf']

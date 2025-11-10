@@ -1,0 +1,10 @@
+freja:
+  paths:
+    grids: /home/rossby/AQUA_DATA/grids
+    weights: /home/rossby/AQUA_DATA/weights
+    areas: /home/rossby/AQUA_DATA/areas
+hpc2020:
+  paths:
+    grids: /ec/res4/hpcperm/itmn/data/aqua/grids
+    weights: /ec/res4/hpcperm/itmn/data/aqua/weights
+    areas: /ec/res4/hpcperm/itmn/data/aqua/areas

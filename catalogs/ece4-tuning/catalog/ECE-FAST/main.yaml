@@ -44,3 +44,43 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/ltu7.yaml'
+  T009:
+    description: ECE-FAST scaling present-day
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T009.yaml'
+  LC05:
+    description: ECE-FAST with PALEORCA2 test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC05.yaml'
+  TN10:
+    description: ECE-FAST ntau test
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/TN10.yaml'
+  LC07:
+    description: EC-EARTH4 catalogue test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC07.yaml'
+  FWD4:
+    description: Eocene Paleorca test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/FWD4.yaml'
+  T020:
+    description: ECE-FAST new tuning configuration
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T020.yaml'
+  T021:
+    description: EC-EARTH4 tuning test run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/T021.yaml'
+  LC21:
+    description: ECE-FAST catalogue tuning run
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/LC21.yaml'

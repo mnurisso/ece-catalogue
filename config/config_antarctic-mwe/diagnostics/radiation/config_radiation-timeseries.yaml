@@ -17,8 +17,8 @@ datasets:
 
 references:
   - catalog: 'obs'
-    model: 'ERA5'
-    exp: 'era5'
+    model: 'CERES'
+    exp: 'ebaf-toa41'
     source: 'monthly'
     regrid: null
 
@@ -28,13 +28,13 @@ output:
   save_pdf: true
   save_png: true
   dpi: 300
-  create_catalog_entry: false
 
 diagnostics:
   timeseries:
     run: true
-    diagnostic_name: 'ocean'
-    variables: ['tos']
+    diagnostic_name: 'radiation'
+    variables: ['tnlwrf', 'tnswrf']
+    formulae: ['tnlwrf+tnswrf']
     center_time: false
     params:
       default:
@@ -42,16 +42,22 @@ diagnostics:
         daily: False
         monthly: False
         annual: True
-        std_startdate: '19900101'
+        std_startdate: '20000101'
         std_enddate: '20201231'
-      tos:
-        regions: ['nh', 'sh']
-  
-  seasonalcycles:
-    run: false
-    diagnostic_name: 'ocean'
-    variables: ['tos']
-    params:
-      default:
-        std_startdate: '1990-01-01'
-        std_enddate: '2020-12-31'
+      tnlwrf+tnswrf:
+        standard_name: "net_top_radiation"
+        long_name: "Net top radiation"
+
+  gregory:
+    run: true
+    diagnostic_name: 'radiation'
+    t2m: '2t'
+    net_toa_name: 'tnlwrf+tnswrf'
+    monthly: true
+    annual: true
+    std: true
+    std_startdate: '19900101'
+    std_enddate: '20201231'
+    # Gregory needs 2 datasets and do not care about the references block above
+    t2m_ref: {'catalog': 'obs', 'model': 'ERA5', 'exp': 'era5', 'source': 'monthly'}
+    net_toa_ref: {'catalog': 'obs', 'model': 'CERES', 'exp': 'ebaf-toa42', 'source': 'monthly'}

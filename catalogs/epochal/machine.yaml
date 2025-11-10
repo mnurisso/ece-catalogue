@@ -1,5 +1,5 @@
 hpc2020:
   paths:
-    grids: /ec/res4/hpcperm/itmn/data/aqua/grids
-    weights: /ec/res4/hpcperm/itmn/data/aqua/weights
-    areas: /ec/res4/hpcperm/itmn/data/aqua/areas
+    grids: /ec/res4/hpcperm/itmn/data/aqua-dvc/grids
+    weights: /ec/res4/hpcperm/itmn/data/aqua-dvc/weights
+    areas: /ec/res4/hpcperm/itmn/data/aqua-dvc/areas

@@ -21,7 +21,7 @@ job:
 
     # Run a check analysis to test the configuration and the presence of needed data
     # This also rebuild the area files, to avoid error with corrupted files
-    run_checker: False
+    run_checker: True
     
     # Default output directory for the analysis. Can be overridden by the command line arguments
     outputdir: "${AQUA}/cli/aqua-analysis/output" 
@@ -48,7 +48,7 @@ diagnostics:
   #       "tropical_rainfall", "ecmean", "ocean3d_drift", "ocean3d_circulation",
   #       "seaice_volume", "seaice_thick", "seaice_conc", "seaice_extent"]
 
-  run: ["seaice"]
+  run: ["ocean3d_drift", "ocean3d_circulation", "teleconnections_oce", "timeseries_oce"]
 
   # List of diagnostics
 
@@ -120,11 +120,11 @@ diagnostics:
   ocean3d_drift:
     script_path: "../../diagnostics/ocean3d/cli/cli_ocean3d.py"
     nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.drift.yaml"
+    config: "${AQUA_CONFIG}/diagnostics/ocean3d/config.drift.yaml"
   ocean3d_circulation:
     script_path: "../../diagnostics/ocean3d/cli/cli_ocean3d.py"
     nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.circulation.yaml"
+    config: "${AQUA_CONFIG}/diagnostics/ocean3d/config.circulation.yaml"
   seaice:
     script_path: "seaice/cli_seaice.py"
     nworkers: 4

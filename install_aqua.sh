@@ -22,10 +22,14 @@ MACHINE=hpc2020
 aqua install $MACHINE -e $AQUA/config 
 aqua add epochal -e $SCRIPT_DIR/catalogs/epochal
 aqua add ece4-tuning -e $SCRIPT_DIR/catalogs/ece4-tuning
+# aqua add antarctic-mwe -e $SCRIPT_DIR/catalogs/antarctic-mwe
 
 # Add observations.
 # If you have separately cloned the ClimateDT catalogue (https://github.com/DestinE-Climate-DT/Climate-DT-catalog) 
 # then use "aqua add obs -e $DIR_OF_YOUR_CATALOGUE/catalogs/obs
 aqua add obs
+
+# If you do not have access to default grids path, set this one
+# aqua grids set /ec/res4/hpcperm/itmn/data/aqua
 
 echo "Installation complete"
