@@ -38,8 +38,6 @@ def parse_arguments(arguments):
     
     parser.add_argument('-catalog', '--catalog', type=str,
                         help='catalog name')
-    parser.add_argument('-exp_name', '--exp_name', type=str,
-                        help='catalog name')
     parser.add_argument('-path', '--path', type=str,
                         help='catalog name')
 
