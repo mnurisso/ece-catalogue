@@ -35,6 +35,13 @@ def parse_arguments(arguments):
                         help='jinja template file')
     parser.add_argument('-l', '--loglevel', type=str,
                         help='loglevel', default='INFO')
+    
+    parser.add_argument('-catalog', '--catalog', type=str,
+                        help='catalog name')
+    parser.add_argument('-exp_name', '--exp_name', type=str,
+                        help='catalog name')
+    parser.add_argument('-path', '--path', type=str,
+                        help='catalog name')
 
     return parser.parse_args(arguments)
 
@@ -70,6 +77,14 @@ if __name__ == '__main__':
     description = get_arg(args, 'description', None)
     if description:
         definitions['description'] = description
+        
+    catalog = get_arg(args, 'catalog', None)
+    if catalog:
+        definitions['catalog'] = catalog
+
+    path = get_arg(args, 'path', None)
+    if path:
+        definitions['path'] = path
 
     # Check if all mandatory fields are present
     if 'freq' not in definitions:
