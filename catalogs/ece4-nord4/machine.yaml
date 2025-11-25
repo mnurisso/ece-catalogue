@@ -60,6 +60,6 @@ MN5-e25.1:
     OUTPUT_AQUA_PATH: null
 nord4:
   paths:
-    grids: /esarchive/scratch/AQUA/grids
-    weights: /esarchive/scratch/AQUA/weights
-    areas: /esarchive/scratch/AQUA/areas
+    grids: /esarchive/scratch/AQUA/aqua-dvc/grids
+    weights: /esarchive/scratch/AQUA/aqua-dvc/weights
+    areas: /esarchive/scratch/AQUA/aqua-dvc/areas
