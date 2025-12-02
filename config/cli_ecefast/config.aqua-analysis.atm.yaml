@@ -20,7 +20,7 @@ job:
 
     # Run a check analysis to test the configuration and the presence of needed data
     # This also rebuild the area files, to avoid error with corrupted files
-    run_checker: true
+    run_checker: false
     
     # Default output directory for the analysis. Can be overridden by the command line arguments
     outputdir: "./output"
@@ -34,7 +34,7 @@ job:
     startdate: null
     enddate: null
 
-    script_path_base: "${AQUA}/src/aqua_diagnostics"  # Base directory for the diagnostic scripts
+    script_path_base: "${AQUA_DIAGNOSTICS}/aqua/diagnostics"  # Base directory for the diagnostic scripts
 
 cluster:  # options for dask cluster (this works well on lumi)
     workers: 32
