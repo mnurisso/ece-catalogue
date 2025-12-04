@@ -9,12 +9,12 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: tl63-ece
+      source_grid_name: tl63
       fixer_name: ec-earth4-ifs
     args:
       urlpath:
-          - /ec/res4/scratch/ccpd/ece4/LC21/output/oifs/LC21_atm_cmip6_1m*.nc
-          - /ec/res4/scratch/ccpd/ece4/LC21/output/oifs/LC21_atm_cmip6_pl_1m*.nc
+          - /ec/res4/scratch/ccff/ece4/T021/output/oifs/T021_atm_cmip6_1m*.nc
+          - /ec/res4/scratch/ccff/ece4/T021/output/oifs/T021_atm_cmip6_pl_1m*.nc
       chunks:
         time: 1
       xarray_kwargs:
@@ -25,10 +25,10 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: PALEORCA2-pd-ece
+      source_grid_name: ORCA2-ece
       fixer_name: ec-earth4-nemo
     args:
-      urlpath: /ec/res4/scratch/ccpd/ece4/LC21/output/nemo/LC21_oce_1m_T_*.nc
+      urlpath: /ec/res4/scratch/ccff/ece4/T021/output/nemo/T021_oce_1m_T_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
@@ -39,10 +39,10 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: PALEORCA2-pd-ece-ice
+      source_grid_name: ORCA2-ece
       fixer_name: ec-earth4-nemo-ice
     args:
-      urlpath: /ec/res4/scratch/ccpd/ece4/LC21/output/nemo/LC21_ice_1m_*.nc
+      urlpath: /ec/res4/scratch/ccff/ece4/T021/output/nemo/T021_ice_1m_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
