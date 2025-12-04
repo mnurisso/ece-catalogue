@@ -13,8 +13,9 @@ import jinja2
 from filelock import FileLock
 
 from aqua import Reader, inspect_catalog
-from aqua.util import ConfigPath, load_yaml, dump_yaml, get_arg
-from aqua.logger import log_configure
+from aqua.core.configurer import ConfigPath
+from aqua.core.util import load_yaml, dump_yaml, get_arg
+from aqua.core.logger import log_configure
 
 
 def parse_arguments(arguments):
