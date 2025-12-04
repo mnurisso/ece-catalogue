@@ -61,7 +61,8 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
-  - ["ocean2d", "ocean3d-part1",  "ocean3d-part2"]
+  - ["teleconnections", "ocean2d"] #3d ocean is broken for now
+  #- ["ocean3d-part1",  "ocean3d-part2"]
   # List of diagnostics
 
   # Each diagnostic can have the following options (all optional):
@@ -133,11 +134,12 @@ diagnostics:
 
   seaice:
     seaice:
-      config: "${AQUA_CONFIG}/diagnostics/seaice/config-seaice.yaml"
+      config: ["${AQUA_CONFIG}/diagnostics/seaice/config-seaice-osi.yaml",
+               "${AQUA_CONFIG}/diagnostics/seaice/config-seaice-psc.yaml"]
 
   teleconnections:
-    nao:
-      config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
+    #nao:
+    #  config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
     enso:
       config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-enso.yaml"
 

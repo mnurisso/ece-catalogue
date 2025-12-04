@@ -20,7 +20,7 @@ job:
 
     # Run a check analysis to test the configuration and the presence of needed data
     # This also rebuild the area files, to avoid error with corrupted files
-    run_checker: false
+    run_checker: true
     
     # Default output directory for the analysis. Can be overridden by the command line arguments
     outputdir: "./output"
@@ -61,7 +61,8 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
-    - ["teleconnections", "climate_metrics", "atmosphere2d", "atmosphere3d"] # very fast ones first, a few min
+    - ["teleconnections", "climate_metrics"] # very fast ones first, a few min
+    - ["atmosphere2d", "atmosphere3d"] 
     - [ "radiation-surface", "radiation-toa"]
 
   # List of diagnostics
@@ -140,8 +141,8 @@ diagnostics:
   teleconnections:
     nao:
       config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
-    enso:
-      config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-enso.yaml"
+    #enso:
+    #  config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-enso.yaml"
 
   water_cycle:
     timeseries:
