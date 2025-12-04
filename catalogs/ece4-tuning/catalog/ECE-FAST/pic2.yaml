@@ -1,6 +1,6 @@
 plugins:
   source:
-    - module: intake_xarray
+  - module: intake_xarray
 
 sources:
 
@@ -8,37 +8,39 @@ sources:
     description: IFS 2D atmospheric data on tl63 grid.
     driver: netcdf
     metadata:
-      time_coder: 's'
-      source_grid_name: tl63
+      time_coder: s
+      source_grid_name: tl63-ece
       fixer_name: ec-earth4-ifs
     args:
       urlpath:
-          - /ec/res4/scratch/ecme3497/ece4/pic2/output/oifs/pic2_atm_cmip6_1m*.nc
-          - /ec/res4/scratch/ecme3497/ece4/pic2/output/oifs/pic2_atm_cmip6_pl_1m*.nc
+      - /ec/res4/scratch/ecme3497/ece4/pic2/output/oifs/pic2_atm_cmip6_1m*.nc
+      - /ec/res4/scratch/ecme3497/ece4/pic2/output/oifs/pic2_atm_cmip6_pl_1m*.nc
       chunks:
         time: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
+        #use_cftime: true
 
   monthly-oce:
     description: NEMO ocean T output
     driver: netcdf
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: ORCA2-ece
       fixer_name: ec-earth4-nemo
     args:
-      urlpath: /ec/res4/scratch/ecme3497/ece4/pic2/output/nemo/pic2_oce_1m_T_*.nc
+      urlpath: 
+        /ec/res4/scratch/ecme3497/ece4/pic2/output/nemo/pic2_oce_1m_T_*.nc
       chunks:
         time_counter: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
 
   monthly-ice:
     description: NEMO ice output
     driver: netcdf
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: ORCA2-ece-ice
       fixer_name: ec-earth4-nemo-ice
     args:
@@ -46,18 +48,236 @@ sources:
       chunks:
         time_counter: 1
       xarray_kwargs:
-        decode_times: True
+        decode_times: true
 
   # this is here only because of the OutputSaver bug #1685
   lra-r100-monthly:
     driver: netcdf
     description: LRA data monthly at r100
     args:
-      urlpath: '/dummy/*_r100_monthly_*.nc'
+      urlpath: /dummy/*_r100_monthly_*.nc
       chunks: {}
       xarray_kwargs:
         decode_times: true
         combine: by_coords
     metadata:
-      time_coder: 's'
+      time_coder: s
       source_grid_name: lon-lat
+  aqua-atmosphere2d-annual_climatology:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere2d data for product 
+      annual_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/atmosphere2d/netcdf/atmosphere2d.annual_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-atmosphere2d-seasonal_climatology:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere2d data for product 
+      seasonal_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/atmosphere2d/netcdf/atmosphere2d.seasonal_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-atmosphere3d-annual_climatology:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere3d data for product 
+      annual_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/atmosphere3d/netcdf/atmosphere3d.annual_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-atmosphere3d-seasonal_climatology:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere3d data for product 
+      seasonal_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/atmosphere3d/netcdf/atmosphere3d.seasonal_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-radiation_toa-annual_climatology:
+    driver: netcdf
+    description: AQUA diagnostic radiation_toa data for product 
+      annual_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/radiation-toa/netcdf/radiation_toa.annual_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-radiation_surface-annual_climatology:
+    driver: netcdf
+    description: AQUA diagnostic radiation_surface data for product 
+      annual_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/radiation-surface/netcdf/radiation_surface.annual_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-radiation_toa-seasonal_climatology:
+    driver: netcdf
+    description: AQUA diagnostic radiation_toa data for product 
+      seasonal_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/radiation-toa/netcdf/radiation_toa.seasonal_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-radiation_surface-seasonal_climatology:
+    driver: netcdf
+    description: AQUA diagnostic radiation_surface data for product 
+      seasonal_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/radiation-surface/netcdf/radiation_surface.seasonal_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-ocean2d-annual_climatology:
+    driver: netcdf
+    description: AQUA diagnostic ocean2d data for product annual_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/ocean2d/netcdf/ocean2d.annual_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-ocean2d-seasonal_climatology:
+    driver: netcdf
+    description: AQUA diagnostic ocean2d data for product seasonal_climatology
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/ocean2d/netcdf/ocean2d.seasonal_climatology.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+  aqua-atmosphere2d-seasonalcycles:
+    driver: netcdf
+    description: AQUA diagnostic atmosphere2d data for product seasonalcycles
+    args:
+      urlpath: 
+        /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/pic2/{{realization}}/atmosphere2d/netcdf/atmosphere2d.seasonalcycles.ece4-tuning.ECE-FAST.pic2.{{realization}}.*.{{freq}}.{{region}}.nc
+      chunks: {}
+      xarray_kwargs:
+        decode_times: true
+    metadata:
+      source_grid_name: false
+    parameters:
+      freq:
+        description: Parameter freq
+        default: monthly
+        type: str
+        allowed:
+        - monthly
+      realization:
+        description: Parameter realization
+        default: r1
+        type: str
+        allowed:
+        - r1
+      region:
+        description: Parameter region
+        default: global
+        type: str
+        allowed:
+        - global
