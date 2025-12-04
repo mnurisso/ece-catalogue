@@ -198,6 +198,8 @@ sources:
       urlpath: 
         /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/T020/{{realization}}/radiation-surface/netcdf/radiation_surface.annual_climatology.ece4-tuning.ECE-FAST.T020.{{realization}}.*.nc
       chunks: {}
+      xarray_kwargs:
+        decode_times: true
     metadata:
       source_grid_name: false
     parameters:
@@ -215,6 +217,8 @@ sources:
       urlpath: 
         /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/T020/{{realization}}/radiation-toa/netcdf/radiation_toa.seasonal_climatology.ece4-tuning.ECE-FAST.T020.{{realization}}.*.nc
       chunks: {}
+      xarray_kwargs:
+        decode_times: true
     metadata:
       source_grid_name: false
     parameters:
@@ -232,6 +236,8 @@ sources:
       urlpath: 
         /ec/res4/scratch/ccpd/aqua-analysis/ece4-tuning/ECE-FAST/T020/{{realization}}/radiation-surface/netcdf/radiation_surface.seasonal_climatology.ece4-tuning.ECE-FAST.T020.{{realization}}.*.nc
       chunks: {}
+      xarray_kwargs:
+        decode_times: true
     metadata:
       source_grid_name: false
     parameters:
