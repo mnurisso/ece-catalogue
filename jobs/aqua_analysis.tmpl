@@ -58,4 +58,4 @@ if [ "$amip" = false ]; then
     aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid --startdate $startdate --enddate $enddate
 fi
 
-bash ${PUSH_ANALYSIS_DIR}/push_analysis.sh --rsync aqua@climate-web.polito.it:ece4 -c /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis  ece4-tuning/$model/$exp/r1
+bash ${PUSH_ANALYSIS_DIR}/push_analysis.sh --rsync aqua@climate-web.polito.it:ece4 -c ${PERM}/AQUA-diagnostics/aqua/diagnostics/config/analysis/config.grouping.yaml  $SCRATCH/aqua-analysis  ece4-tuning/$model/$exp/r1
