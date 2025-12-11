@@ -86,6 +86,7 @@ diagnostics:
                "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-era5.yaml"]
     lat_lon_profiles:
       config: "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml"
+      extra: "--regrid=r100"
 
   atmosphere3d:
     biases:
@@ -151,6 +152,7 @@ diagnostics:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
     lat_lon_profiles:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
+      extra: "--regrid=r100"
     tropical_rainfall:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-tropical_rainfall.yaml"
       extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
