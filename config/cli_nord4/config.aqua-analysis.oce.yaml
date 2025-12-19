@@ -37,9 +37,9 @@ job:
     script_path_base: "${AQUA}/src/aqua_diagnostics"  # Base directory for the diagnostic scripts
 
 cluster:  # options for dask cluster (this works well on lumi)
-    workers: 32
+    workers: 4
     threads: 1  # per worker
-    memory_limit: 7GiB  # per worker
+    memory_limit: 1GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -61,9 +61,11 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
+  - ["teleconnections"]
+  - ["ocean2d"]
   - [
     "ocean3d-part1",
-    "ocean3d-part2"
+    "ocean3d-part2",
     ]
 
   # List of diagnostics
@@ -119,7 +121,6 @@ diagnostics:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-stratification.yaml"
       outname: "ocean3d"
       extra: "--regrid=r100"
-
   radiation-toa:
     biases:
       config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
