@@ -39,7 +39,7 @@ job:
 cluster:  # options for dask cluster (this works well on lumi)
     workers: 4
     threads: 1  # per worker
-    memory_limit: 1GiB  # per worker
+    memory_limit: 24GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -61,12 +61,13 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
-  - ["teleconnections"]
-  - ["ocean2d"]
+  - ["teleconnections", "ocean2d", "climate_metrics-ocean"]
   - [
-    "ocean3d-part1",
-    "ocean3d-part2",
+    "ocean3d-drift",
+    "ocean3d-stratification",
+    # "ocean_trends" # can't handle mid month calendar
     ]
+  - [" ocean2d-biases"]
 
   # List of diagnostics
 
@@ -80,43 +81,31 @@ run:
   #                 Default script_path is "$script_path_base/$diagnostic/cli/cli_${diagnostic}.py"
   #    nocluster: boolean, if set to true, the diagnostic will not use the global dask cluster. Default is false (needed for ECmean)
 diagnostics:
-  atmosphere2d: 
-    biases: 
-      config: ["${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml", 
-               "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-era5.yaml"]
-    timeseries:
-      config: ["${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml",
-               "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-era5.yaml"]
-    lat_lon_profiles:
-      config: "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml"
-
-  atmosphere3d:
-    biases:
-      config: "${AQUA_CONFIG}/diagnostics/atmosphere3d/config-atmosphere3d-era5.yaml"
-
-  climate_metrics:
+  climate_metrics-ocean:
     ecmean:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-ecmean.yaml"
       nocluster: true  # ECmean does not use the global dask cluster
       source_oce: true  # if a --source_oce argument was passed use it
-    gregory:
-      config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
+    # gregory:
+    #   config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
 
   ocean2d:
     biases:
       config: "${AQUA_CONFIG}/diagnostics/ocean2d/config-ocean2d-esacci.yaml"
+      extra: "--regrid=r100"
 
-  ocean3d-part1:
+  ocean3d-trend:
     trends:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-trend-drift.yaml"  # these diagnostics need a different chunking
       outname: "ocean3d"
       extra: "--regrid=r100"
+  ocean3d-drift:
     drift:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-trend-drift.yaml"  # these diagnostics need a different chunking
       outname: "ocean3d"
       extra: "--regrid=r100"
 
-  ocean3d-part2:
+  ocean3d-stratification:
     stratification:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-stratification.yaml"
       outname: "ocean3d"
@@ -144,10 +133,12 @@ diagnostics:
       config: "${AQUA_CONFIG}/diagnostics/seaice/config-seaice.yaml"
 
   teleconnections:
-    nao:
-      config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
+    # nao:  #msl is available in atm data
+    #   config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
+    #   extra: "--regrid=r100"
     enso:
       config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-enso.yaml"
+      extra: "--regrid=r100"
 
   water_cycle:
     timeseries:
@@ -156,6 +147,11 @@ diagnostics:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
     lat_lon_profiles:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
-    tropical_rainfall:
-      config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-tropical_rainfall.yaml"
-      extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
+    # tropical_rainfall: # need to upgrade AQUA version to work on nord4, due to the config file is old style
+    #   config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-tropical_rainfall.yaml"
+    #   extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
+
+  ocean2d-biases:  #disabling since tos is not availavle in atm
+    biases:
+      config: "${AQUA_CONFIG}/diagnostics/ocean2d/config-ocean2d-esacci.yaml"
+      extra: "--regrid=r100"
