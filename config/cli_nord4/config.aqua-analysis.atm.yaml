@@ -15,7 +15,7 @@ job:
     #                                              This is useful when you are working on a system with limited
     #                                              resources, such as a login node
 
-    max_threads: 0  # Set to the desired maximum number of threads, or leave it as 0 for no limit
+    max_threads: 3  # Set to the desired maximum number of threads, or leave it as 0 for no limit
     loglevel: "WARNING" # DEBUG, IN FO, WARNING, ERROR, CRITICAL
 
     # Run a check analysis to test the configuration and the presence of needed data
@@ -39,7 +39,7 @@ job:
 cluster:  # options for dask cluster (this works well on lumi)
     workers: 4
     threads: 1  # per worker
-    memory_limit: 1GiB  # per worker
+    memory_limit: 24GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -61,14 +61,22 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
-    - ["climate_metrics"] # very fast ones first, a few min
     - ["teleconnections", "climate_metrics"] # very fast ones first, a few min
-    - ["atmosphere2d-part1"]
+    - [ 
+        # "atmosphere2d-part1", #tcc, 2t not found 
+        "atmosphere3d"
+        ]
     - ["atmosphere2d-part2"]
-    - ["atmosphere3d"]
-    - ["radiation-surface"]
-    - ["radiation-toa"] 
-    - ["water_cycle"]
+    - [
+        # "radiation-surface",
+        "radiation-toa", 
+      # "water_cycle"
+      ]
+    - ["radiation-surface-biases"]
+    - ["atmosphere2d-biases"]
+    - ["atmosphere3d-biases"]
+    - ["ocean2d-biases"]
+    - ["water_cycle-biases"]
 
   # List of diagnostics
 
@@ -89,13 +97,15 @@ diagnostics:
     lat_lon_profiles:
       config: "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml"
       extra: "--regrid=r100"
-  atmosphere2d-part2: 
+  atmosphere2d-biases: 
     biases: 
       config: ["${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-berkeley.yaml", 
                "${AQUA_CONFIG}/diagnostics/atmosphere2d/config-atmosphere2d-era5.yaml"]
-  atmosphere3d:
+      extra: "--regrid=r100"
+  atmosphere3d-biases:
     biases:
       config: "${AQUA_CONFIG}/diagnostics/atmosphere3d/config-atmosphere3d-era5.yaml"
+      extra: "--regrid=r100"
 
   climate_metrics:
     ecmean:
@@ -105,35 +115,45 @@ diagnostics:
     gregory:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
 
-  ocean2d:
-    biases:
-      config: "${AQUA_CONFIG}/diagnostics/ocean2d/config-ocean2d-esacci.yaml"
+  # ocean2d-biases:  #disabling since tos is not availavle in atm
+  #   biases:
+  #     config: "${AQUA_CONFIG}/diagnostics/ocean2d/config-ocean2d-esacci.yaml"
+  #     extra: "--regrid=r100"
 
   ocean3d-part1:
     trends:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-trend-drift.yaml"  # these diagnostics need a different chunking
       outname: "ocean3d"
+      extra: "--regrid=r100"
     drift:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-trend-drift.yaml"  # these diagnostics need a different chunking
       outname: "ocean3d"
+      extra: "--regrid=r100"
 
   ocean3d-part2:
     stratification:
       config: "${AQUA_CONFIG}/diagnostics/ocean3d/config-ocean3d-en4-stratification.yaml"
       outname: "ocean3d"
+      extra: "--regrid=r100"
 
-  radiation-toa:
+  radiation-toa-biases:
     biases:
       config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
+      extra: "--regrid=r100"
+  radiation-toa:
     boxplots:
       config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-boxplots.yaml"
-    timeseries:
-      config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
+      extra: "--regrid=r100"
+    # timeseries:  # Due to mid month "not all values found in index 'month'
+    #   config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
+    #   extra: "--regrid=r100"
 
-  radiation-surface:
+  radiation-surface-biases:
     biases:
       config: ["${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-ceres.yaml",
                "${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-era5.yaml"]
+      extra: "--regrid=r100"
+  radiation-surface:  # problem with the calender time is mid-month 
     boxplots:
       config: "${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-boxplots.yaml"
     timeseries:
@@ -143,23 +163,27 @@ diagnostics:
   seaice:
     seaice:
       config: "${AQUA_CONFIG}/diagnostics/seaice/config-seaice.yaml"
+      extra: "--regrid=r100"
 
   teleconnections:
     nao:
       config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-nao.yaml"
       extra: "--regrid=r100"
-    # enso:
+    # enso: # enso done with ocean data
     #   config: "${AQUA_CONFIG}/diagnostics/teleconnections/config-teleconnections-enso.yaml"
     #   extra: "--regrid=r100"
 
   water_cycle:
-    timeseries:
+    timeseries: # tprate is missing
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
-    biases:
+      extra: "--regrid=r100"
+  water_cycle-biases:
+    biases:   
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
+      extra: "--regrid=r100"
     lat_lon_profiles:
       config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-mswep.yaml"
       extra: "--regrid=r100"
-    tropical_rainfall:
-      config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-tropical_rainfall.yaml"
-      extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
+    # tropical_rainfall:  #need to update AQUA versio since this is not compatible with nord4 path
+    #   config: "${AQUA_CONFIG}/diagnostics/water_cycle/config-water_cycle-tropical_rainfall.yaml"
+    #   extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
