@@ -62,7 +62,7 @@ cli:
 
 run: 
     - ["climate_metrics-seaice"] # very fast ones first, a few min
-    # - ["seaice"] # very fast ones first, a few min
+    - ["seaice"] # very fast ones first, a few min
   # List of diagnostics
 
   # Each diagnostic can have the following options (all optional):
