@@ -68,9 +68,9 @@ run:
         ]
     - ["atmosphere2d-part2"]
     - [
-        # "radiation-surface",
+        "radiation-surface",
         "radiation-toa", 
-      # "water_cycle"
+      # "water_cycle" #missing tprate
       ]
     - ["radiation-surface-biases"]
     - ["atmosphere2d-biases"]
@@ -144,9 +144,9 @@ diagnostics:
     boxplots:
       config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-boxplots.yaml"
       extra: "--regrid=r100"
-    # timeseries:  # Due to mid month "not all values found in index 'month'
-    #   config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
-    #   extra: "--regrid=r100"
+    timeseries:  # Due to mid month "not all values found in index 'month'
+      config: "${AQUA_CONFIG}/diagnostics/radiation_toa/config-radiation_toa-ceres.yaml"
+      extra: "--regrid=r100"
 
   radiation-surface-biases:
     biases:
