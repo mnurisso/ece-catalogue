@@ -15,7 +15,7 @@ job:
     #                                              This is useful when you are working on a system with limited
     #                                              resources, such as a login node
 
-    max_threads: 3  # Set to the desired maximum number of threads, or leave it as 0 for no limit
+    max_threads: 0  # Set to the desired maximum number of threads, or leave it as 0 for no limit
     loglevel: "WARNING" # DEBUG, IN FO, WARNING, ERROR, CRITICAL
 
     # Run a check analysis to test the configuration and the presence of needed data
@@ -38,8 +38,8 @@ job:
 
 cluster:  # options for dask cluster (this works well on lumi)
     workers: 4
-    threads: 1  # per worker
-    memory_limit: 24GiB  # per worker
+    threads: 2  # per worker
+    memory_limit: 3GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -60,23 +60,39 @@ cli:
   trends: "ocean_trends/cli_ocean_trends.py"
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
+
 run: 
-    - ["teleconnections", "climate_metrics"] # very fast ones first, a few min
-    - [ 
-        # "atmosphere2d-part1", #tcc, 2t not found 
-        "atmosphere3d"
-        ]
-    - ["atmosphere2d-part2"]
-    - [
+    - ["teleconnections", 
+        "climate_metrics", 
+        "atmosphere3d",
+        "atmosphere2d-part2",
         "radiation-surface",
         "radiation-toa", 
-      # "water_cycle" #missing tprate
-      ]
-    - ["radiation-surface-biases"]
-    - ["atmosphere2d-biases"]
-    - ["atmosphere3d-biases"]
-    - ["ocean2d-biases"]
-    - ["water_cycle-biases"]
+        "radiation-surface-biases",
+        "atmosphere2d-biases",
+        "atmosphere2d-part1",
+        "atmosphere3d-biases",
+        "ocean2d-biases",
+        "water_cycle-biases"
+    ]
+
+# run: 
+#     - ["teleconnections", "climate_metrics"] # very fast ones first, a few min
+#     - [ 
+#         # "atmosphere2d-part1", #tcc, 2t not found 
+#         "atmosphere3d"
+#         ]
+#     - ["atmosphere2d-part2"]
+#     - [
+#         "radiation-surface",
+#         "radiation-toa", 
+#       # "water_cycle" #missing tprate
+#       ]
+#     - ["radiation-surface-biases"]
+#     - ["atmosphere2d-biases"]
+#     - ["atmosphere3d-biases"]
+#     - ["ocean2d-biases"]
+#     - ["water_cycle-biases"]
 
   # List of diagnostics
 

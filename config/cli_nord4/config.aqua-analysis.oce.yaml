@@ -15,7 +15,7 @@ job:
     #                                              This is useful when you are working on a system with limited
     #                                              resources, such as a login node
 
-    max_threads: 1  # Set to the desired maximum number of threads, or leave it as 0 for no limit
+    max_threads: 0  # Set to the desired maximum number of threads, or leave it as 0 for no limit
     loglevel: "WARNING" # DEBUG, IN FO, WARNING, ERROR, CRITICAL
 
     # Run a check analysis to test the configuration and the presence of needed data
@@ -61,13 +61,10 @@ cli:
   tropical_rainfall: "../../diagnostics/tropical_rainfall/cli/cli_tropical_rainfall.py"
 
 run: 
-  - ["teleconnections", "ocean2d", "climate_metrics-ocean"]
-  - [
-    "ocean3d-drift",
+  - ["teleconnections", "ocean2d", "climate_metrics-ocean","ocean3d-drift",
     "ocean3d-stratification",
     # "ocean_trends" # can't handle mid month calendar
-    ]
-  - [" ocean2d-biases"]
+    " ocean2d-biases"]
 
   # List of diagnostics
 
