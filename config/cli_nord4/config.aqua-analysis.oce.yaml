@@ -37,9 +37,9 @@ job:
     script_path_base: "${AQUA}/src/aqua_diagnostics"  # Base directory for the diagnostic scripts
 
 cluster:  # options for dask cluster (this works well on lumi)
-    workers: 4
-    threads: 1  # per worker
-    memory_limit: 24GiB  # per worker
+    workers: 8
+    threads: 2  # per worker
+    memory_limit: 3.5GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 

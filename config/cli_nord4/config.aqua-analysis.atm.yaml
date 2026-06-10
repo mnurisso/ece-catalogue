@@ -37,9 +37,9 @@ job:
     script_path_base: "${AQUA}/src/aqua_diagnostics"  # Base directory for the diagnostic scripts
 
 cluster:  # options for dask cluster (this works well on lumi)
-    workers: 4
+    workers: 8
     threads: 2  # per worker
-    memory_limit: 3GiB  # per worker
+    memory_limit: 3.5GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -63,18 +63,20 @@ cli:
 
 run: 
     - ["teleconnections", 
-        "climate_metrics", 
+        "climate_metrics"]
+    - [
         "atmosphere3d",
         "atmosphere2d-part2",
         "radiation-surface",
         "radiation-toa", 
-        "radiation-surface-biases",
+        
         "atmosphere2d-biases",
         "atmosphere2d-part1",
-        "atmosphere3d-biases",
         "ocean2d-biases",
         "water_cycle-biases"
-    ]
+        ]
+    - ["radiation-surface-biases",
+      "atmosphere3d-biases"]
 
 # run: 
 #     - ["teleconnections", "climate_metrics"] # very fast ones first, a few min
