@@ -130,6 +130,8 @@ diagnostics:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-ecmean.yaml"
       nocluster: true  # ECmean does not use the global dask cluster
       source_oce: true  # if a --source_oce argument was passed use it
+      extra: "--regrid=r100"
+
     gregory:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
 
@@ -174,9 +176,11 @@ diagnostics:
   radiation-surface:  # problem with the calender time is mid-month 
     boxplots:
       config: "${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-boxplots.yaml"
+      extra: "--regrid=r100"
     timeseries:
       config: ["${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-ceres.yaml",
                "${AQUA_CONFIG}/diagnostics/radiation_surface/config-radiation_surface-era5.yaml"]
+      extra: "--regrid=r100"
 
   seaice:
     seaice:
