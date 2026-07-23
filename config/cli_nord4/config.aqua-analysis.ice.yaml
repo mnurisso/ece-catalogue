@@ -20,7 +20,7 @@ job:
 
     # Run a check analysis to test the configuration and the presence of needed data
     # This also rebuild the area files, to avoid error with corrupted files
-    run_checker: true
+    run_checker: false
     
     # Default output directory for the analysis. Can be overridden by the command line arguments
     outputdir: "./output"
@@ -30,16 +30,16 @@ job:
     model: "IFS-NEMO"
     exp: "historical-1990"
     source: "lra-r100-monthly"
-    regrid: null
+    regrid: r100
     startdate: null
     enddate: null
 
     script_path_base: "${AQUA}/src/aqua_diagnostics"  # Base directory for the diagnostic scripts
 
 cluster:  # options for dask cluster (this works well on lumi)
-    workers: 32
-    threads: 1  # per worker
-    memory_limit: 7GiB  # per worker
+    workers: 24
+    threads: 2  # per worker
+    memory_limit: 3.5GiB  # per worker
     connect_timeout: 120  # seconds to wait for client to connect to the cluster
     # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
@@ -77,12 +77,13 @@ diagnostics:
   seaice:
     seaice:
       config: "${AQUA_CONFIG}/diagnostics/seaice/config-seaice.yaml"
-      extra: "--regrid=r100"
+
 
   climate_metrics-seaice:
     ecmean:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-ecmean.yaml"
       nocluster: true  # ECmean does not use the global dask cluster
       source_oce: true  # if a --source_oce argument was passed use it
+
     # gregory:
     #   config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
