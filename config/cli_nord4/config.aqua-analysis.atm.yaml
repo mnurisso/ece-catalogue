@@ -109,8 +109,7 @@ diagnostics:
 
     gregory:
       config: "${AQUA_CONFIG}/diagnostics/climate_metrics/config-climate_metrics-gregory.yaml"
-
-
+      extra: "--regrid=r100"
   # ocean2d-biases:  #disabling since tos is not availavle in atm
   #   biases:
   #     config: "${AQUA_CONFIG}/diagnostics/ocean2d/config-ocean2d-esacci.yaml"
