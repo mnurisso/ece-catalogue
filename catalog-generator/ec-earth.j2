@@ -9,8 +9,9 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: {{ ifs_grid }}
+      source_grid_name: {{ ifs_grid }}-ece
       fixer_name: {{ ifs_fixer }}
+      filter_key: year
     args:
       urlpath:
           - {{ path }}/{{ exp }}/output/oifs/{{ exp }}_atm_cmip6_{{ exp_freq }}*.nc
@@ -28,6 +29,7 @@ sources:
       time_coder: 's'
       source_grid_name: {{ nemo_grid }}-ece
       fixer_name: {{ nemo_fixer }}
+      filter_key: year
     args:
       urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_oce_{{ exp_freq }}_T_*.nc
       chunks:
@@ -42,6 +44,7 @@ sources:
       time_coder: 's'
       source_grid_name: {{ nemo_grid }}-ece-ice
       fixer_name: {{ ice_fixer }}
+      filter_key: year
     args:
       urlpath: {{ path }}/{{ exp }}/output/nemo/{{ exp }}_ice_{{ exp_freq }}_*.nc
       chunks:

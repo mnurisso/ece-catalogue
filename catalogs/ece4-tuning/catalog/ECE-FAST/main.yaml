@@ -69,18 +69,18 @@ sources:
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/FWD4.yaml'
+  pic2:
+    description: EC-EARTH4 overshoot 2262 test
+    driver: yaml_file_cat
+    args:
+      path: '{{CATALOG_DIR}}/pic2.yaml'
   T020:
-    description: ECE-FAST new tuning configuration
+    description: EC-EARTH4 110 year test 
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/T020.yaml'
-  T021:
-    description: EC-EARTH4 tuning test run
-    driver: yaml_file_cat
-    args:
-      path: '{{CATALOG_DIR}}/T021.yaml'
   LC21:
-    description: ECE-FAST catalogue tuning run
+    description: EC-EARTH4 PALEORCA test
     driver: yaml_file_cat
     args:
       path: '{{CATALOG_DIR}}/LC21.yaml'

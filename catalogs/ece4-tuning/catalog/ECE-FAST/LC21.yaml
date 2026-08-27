@@ -9,7 +9,7 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: tl63
+      source_grid_name: tl63-ece
       fixer_name: ec-earth4-ifs
     args:
       urlpath:
@@ -39,7 +39,7 @@ sources:
     driver: netcdf
     metadata:
       time_coder: 's'
-      source_grid_name: PALEORCA2-pd-ece
+      source_grid_name: PALEORCA2-pd-ece-ice
       fixer_name: ec-earth4-nemo-ice
     args:
       urlpath: /ec/res4/scratch/ccpd/ece4/LC21/output/nemo/LC21_ice_1m_*.nc
