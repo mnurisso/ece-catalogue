@@ -12,9 +12,10 @@ import jinja2
 
 from filelock import FileLock
 
-from aqua import Reader, inspect_catalog
-from aqua.util import ConfigPath, load_yaml, dump_yaml, get_arg
-from aqua.logger import log_configure
+from aqua import Reader, show_catalog_content
+from aqua.core.util import load_yaml, dump_yaml, get_arg
+from aqua.core.configurer import ConfigPath
+from aqua.core.logger import log_configure
 
 
 def parse_arguments(arguments):
@@ -158,7 +159,7 @@ if __name__ == '__main__':
     logger.info("%s entry in 'main.yaml' has been updated in %s", definitions['exp_name'], output_dir)
 
     # Check if the file is in the catalog
-    sources = inspect_catalog(catalog_name=definitions['catalog'], model=definitions['model'],
+    sources = show_catalog_content(catalog_name=definitions['catalog'], model=definitions['model'],
                               exp=definitions['exp_name'], verbose=False)
 
     if sources is False:
@@ -167,7 +168,7 @@ if __name__ == '__main__':
         logger.debug("Sources available in catalog for catalog %s model %s and exp %s: %s",
                      definitions['catalog'], definitions['model'], definitions['exp_name'], sources)
 
-    for source in sources:
+    for source in sources[definitions['catalog']][definitions['model']][definitions['exp_name']]:
         if source != "lra-r100-monthly":
             reader = Reader(catalog=definitions['catalog'], model=definitions['model'],
                             exp=definitions['exp_name'], source=source,
