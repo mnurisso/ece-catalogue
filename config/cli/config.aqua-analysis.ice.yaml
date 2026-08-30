@@ -1,54 +1,71 @@
 # Configuration file for aqua-analysis.sh
 
-# Variables $AQUA, $AQUA_CONFIG and $OUTPUT can be used to refer to the root directory of AQUA,
-# the config directory (i.e. .aqua/diagnostics) and the output directory respectively
+# Variables $AQUA_CORE, $AQUA_DIAGNOSTICS $AQUA_CONFIG and $OUTPUT can be used to refer to
+# the directory of the AQUA-core module,
+# the directory of the AQUA-diagnostics module,
+# the config directory (i.e. .aqua) and the output directory respectively.
 
 job:
-    # The max_threads variable serves as a mechanism to control the maximum number of threads
-    # i.e. diagnostic scripts that can run concurrently.
-    # - If max_threads is set to 0 or a negative value: There is no limit on the number of threads,
-    #                                                   and all processes run in parallel without waiting. 
+    # The max_threads variable serves as a mechanism to control the maximum number of diagnostics being run concurrently
+    # - If max_threads is set to 0 or a negative value: There is no limit on the number of parallel diagnostics,
+    #                                                   and all processes run in parallel without waiting.
     #                                                   This is suitable for situations where you want to utilize
     #                                                   the maximum available resources without any restrictions.
-    # - If max_threads is set to a positive value: It limits the number of concurrent threads to the specified value. 
-    #                                              After launching the designated number of threads, the script waits
-    #                                              for these threads to complete before launching additional ones. 
-    #                                              This is useful when you are working on a system with limitations
-    #                                              on the number of concurrent threads, like a login node.
+    # - If max_threads is set to a positive value: It limits the number of concurrent processes to the specified value.
+    #                                              After launching the designated number of diagnostics, the script waits
+    #                                              for these to complete before launching additional ones.
+    #                                              This is useful when you are working on a system with limited
+    #                                              resources, such as a login node
 
     max_threads: 0  # Set to the desired maximum number of threads, or leave it as 0 for no limit
-    loglevel: "WARNING" # DEBUG, IN FO, WARNING, ERROR, CRITICAL
+    loglevel: "WARNING" # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
     # Run a check analysis to test the configuration and the presence of needed data
     # This also rebuild the area files, to avoid error with corrupted files
-    run_checker: False
-    
+    run_checker: true
+
     # Default output directory for the analysis. Can be overridden by the command line arguments
-    outputdir: "${AQUA}/cli/aqua-analysis/output" 
+    outputdir: "./output"
 
     # Default values, overriden from command line arguments
-    catalog: null  # The catalog to use for the analysis
-    model: null
-    exp: null
-    source: null
+    catalog: "climatedt-gen2"  # The catalog to use for the analysis
+    model: "IFS-NEMO-5km"
+    exp: "baseline-hist"
+    source: "lra-r100-monthly"
+    regrid: null
+    startdate: null
+    enddate: null
 
-    script_path_base: "${AQUA}/diagnostics"  # Base directory for the diagnostic scripts
+    script_path_base: "${AQUA_DIAGNOSTICS}"  # Base directory for the diagnostic scripts
+
+    experiment_kind: "${AQUA_CONFIG}/analysis/climatedt-experiment-kind.yaml"  # experiment kind file configuraton
 
 cluster:  # options for dask cluster (this works well on lumi)
     workers: 32
-    threads: 2  # per worker
+    threads: 1  # per worker
     memory_limit: 7GiB  # per worker
+    connect_timeout: 120  # seconds to wait for client to connect to the cluster
+    # ftp_timeout: 60  # timeout in seconds for ftp connections. Will not be set if omitted.
 
-diagnostics:
+# List of available CLI tools (diagnostics)
+cli:
+  biases: "biases/cli_biases.py"
+  boxplots: "boxplots/cli_boxplots.py"
+  drift: "ocean_drift/cli_ocean_drift.py"
+  ecmean: "ecmean/cli_ecmean.py"
+  enso: "teleconnections/cli_teleconnections.py"
+  gregory: "timeseries/cli_timeseries.py"
+  histogram: "histogram/cli_histogram.py"
+  lat_lon_profiles: "lat_lon_profiles/cli_lat_lon_profiles.py"
+  nao: "teleconnections/cli_teleconnections.py"
+  seaice: "seaice/cli_seaice.py"
+  seasonal_cycles: "timeseries/cli_timeseries.py"  # not used
+  stratification: "ocean_stratification/cli_ocean_stratification.py"
+  timeseries: "timeseries/cli_timeseries.py"
+  trends: "ocean_trends/cli_ocean_trends.py"
 
-  # List of diagnostics to run
-  # run: ["global_biases", "timeseries_atm", "timeseries_oce", "seasonal_cycles",
-  #       "radiation-boxplots", "radiation-timeseries", "radiation-biases", 
-  #       "teleconnections_atm", "teleconnections_oce",
-  #       "tropical_rainfall", "ecmean", "ocean3d_drift", "ocean3d_circulation",
-  #       "seaice_volume", "seaice_thick", "seaice_conc", "seaice_extent"]
-
-  run: ["seaice_volume", "seaice_thick", "seaice_conc", "seaice_extent", "timeseries_oce"]  # timeseries_oce is used here to plot the ice timeseries
+run:
+    - ["seaice"]
 
   # List of diagnostics
 
@@ -61,86 +78,85 @@ diagnostics:
   #    script_path: the location of the script to run the diagnostic.
   #                 Default script_path is "$script_path_base/$diagnostic/cli/cli_${diagnostic}.py"
   #    nocluster: boolean, if set to true, the diagnostic will not use the global dask cluster. Default is false (needed for ECmean)
+diagnostics:
+  atmosphere2d:
+    biases:
+      config: ["${AQUA_CONFIG}/collections/jinja/atmosphere2d/config-atmosphere2d-berkeley.j2",
+               "${AQUA_CONFIG}/collections/jinja/atmosphere2d/config-atmosphere2d-era5.j2"]
+    timeseries:
+      config: ["${AQUA_CONFIG}/collections/jinja/atmosphere2d/config-atmosphere2d-berkeley.j2",
+               "${AQUA_CONFIG}/collections/jinja/atmosphere2d/config-atmosphere2d-era5.j2"]
+    lat_lon_profiles:
+      config: "${AQUA_CONFIG}/collections/jinja/atmosphere2d/config-atmosphere2d-berkeley.j2"
 
-  global_biases:
-    nworkers: 16
-    script_path: "../src/aqua_diagnostics/global_biases/cli_global_biases.py"
-    config: "${AQUA_CONFIG}/diagnostics/global_biases/cli/config_global_biases.yaml"
-  timeseries_atm:
-    script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
-    config: "${AQUA_CONFIG}/diagnostics/timeseries/config_timeseries_atm.yaml"
-    nworkers: 16
-    outname: timeseries
-  timeseries_oce:
-    script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
-    config: "${AQUA_CONFIG}/diagnostics/timeseries/config_timeseries_oce.yaml"
-    nworkers: 8
-    outname: timeseries
-  seasonal_cycles:
-    script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
-    nworkers: 16
-    config: "${AQUA_CONFIG}/diagnostics/timeseries/config_seasonalcycles_atm.yaml"
-    outname: timeseries
-  radiation-biases:
-    script_path: "../src/aqua_diagnostics/global_biases/cli_global_biases.py"
-    nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/radiation/cli/config_radiation-biases.yaml"
-    outname: radiation
-  radiation-boxplots:
-    script_path: "../src/aqua_diagnostics/radiation/cli_radiation.py"
-    nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/radiation/cli/config_radiation-boxplots.yaml"
-    outname: radiation
-  radiation-timeseries:
-    script_path: "../src/aqua_diagnostics/timeseries/cli_timeseries.py"
-    nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/radiation/cli/config_radiation-timeseries.yaml"
-    outname: radiation
-  teleconnections_atm:
-    script_path: "../src/aqua_diagnostics/teleconnections/cli_teleconnections.py"
-    nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/teleconnections/config_teleconnections_atm.yaml"
-    outname: teleconnections
-  teleconnections_oce:
-    script_path: "../src/aqua_diagnostics/teleconnections/cli_teleconnections.py"
-    nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/teleconnections/config_teleconnections_oce.yaml"
-    outname: teleconnections
-  tropical_rainfall:
-    nworkers: 16
-    config: "${AQUA_CONFIG}/diagnostics/tropical_rainfall/cli/cli_config_trop_rainfall.yml"
-    extra: "--regrid=r100 --freq=M --xmax=75 --bufferdir=${OUTPUT}/tropical_rainfall/"
-  ecmean:
-    script_path: "../src/aqua_diagnostics/ecmean/cli_ecmean.py"
-    nworkers: 4
-    nocluster: true  # ECmean does not use the global dask cluster
-    config: "${AQUA_CONFIG}/diagnostics/ecmean/config_ecmean_cli.yaml"
-  ocean3d_drift:
-    script_path: "ocean3d/cli/cli_ocean3d.py"
-    nworkers: 8
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.drift.yaml"
-  ocean3d_circulation:
-    script_path: "ocean3d/cli/cli_ocean3d.py"
-    nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/ocean3d/cli/config.circulation.yaml"
-  seaice_volume:
-    script_path: "seaice/cli/cli_seaice.py"
-    nworkers: 4
-    # Command line extra arguments for seaice:
-    # --all-regions (if set it will plot all regions)
-    #               (default is False)
-    # --config (seaice config file)
-    # --regrid (regrid data to a different grid)
-    config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Volume.yaml"
-  seaice_thick:
-    script_path: "seaice/cli/cli_seaice.py"
-    nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Thickness.yaml"
-  seaice_conc:
-    script_path: "seaice/cli/cli_seaice.py"
-    nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Concentration.yaml"
-  seaice_extent:
-    script_path: "seaice/cli/cli_seaice.py"
-    nworkers: 4
-    config: "${AQUA_CONFIG}/diagnostics/seaice/cli/config_Extent.yaml"
+  atmosphere3d:
+    biases:
+      config: "${AQUA_CONFIG}/collections/jinja/atmosphere3d/config-atmosphere3d-era5.j2"
+
+  climate_metrics:
+    ecmean:
+      config: "${AQUA_CONFIG}/collections/jinja/climate_metrics/config-climate_metrics-ecmean.j2"
+      nocluster: true  # ECmean does not use the global dask cluster
+      source_oce: true  # if a --source_oce argument was passed use it
+    gregory:
+      config: "${AQUA_CONFIG}/collections/jinja/climate_metrics/config-climate_metrics-gregory.j2"
+
+  ocean2d:
+    biases:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean2d/config-ocean2d-esacci.j2"
+    timeseries:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean2d/config-ocean2d-esacci.j2"
+    lat_lon_profiles:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean2d/config-ocean2d-esacci.j2"
+
+  ocean3d-part1:
+    trends:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean3d/config-ocean3d-en4-trend-drift.j2"  # these diagnostics need a different chunking
+      outname: "ocean3d"
+    drift:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean3d/config-ocean3d-en4-trend-drift.j2"  # these diagnostics need a different chunking
+      outname: "ocean3d"
+
+  ocean3d-part2:
+    stratification:
+      config: "${AQUA_CONFIG}/collections/jinja/ocean3d/config-ocean3d-en4-stratification.j2"
+      outname: "ocean3d"
+
+  radiation-toa:
+    biases:
+      config: "${AQUA_CONFIG}/collections/jinja/radiation_toa/config-radiation_toa-ceres.j2"
+    boxplots:
+      config: "${AQUA_CONFIG}/collections/jinja/radiation_toa/config-radiation_toa-boxplots.j2"
+    timeseries:
+      config: "${AQUA_CONFIG}/collections/jinja/radiation_toa/config-radiation_toa-ceres.j2"
+
+  radiation-surface:
+    biases:
+      config: ["${AQUA_CONFIG}/collections/jinja/radiation_surface/config-radiation_surface-ceres.j2",
+               "${AQUA_CONFIG}/collections/jinja/radiation_surface/config-radiation_surface-era5.j2"]
+    boxplots:
+      config: "${AQUA_CONFIG}/collections/jinja/radiation_surface/config-radiation_surface-boxplots.j2"
+    timeseries:
+      config: ["${AQUA_CONFIG}/collections/jinja/radiation_surface/config-radiation_surface-ceres.j2",
+               "${AQUA_CONFIG}/collections/jinja/radiation_surface/config-radiation_surface-era5.j2"]
+
+  seaice:
+    seaice:
+      config: ["${AQUA_CONFIG}/collections/jinja/seaice/config-seaice-osi.j2",
+               "${AQUA_CONFIG}/collections/jinja/seaice/config-seaice-psc.j2"]
+
+  teleconnections:
+    nao:
+      config: "${AQUA_CONFIG}/collections/jinja/teleconnections/config-teleconnections-nao.j2"
+    enso:
+      config: "${AQUA_CONFIG}/collections/jinja/teleconnections/config-teleconnections-enso.j2"
+
+  water_cycle:
+    lat_lon_profiles:
+      config: "${AQUA_CONFIG}/collections/jinja/water_cycle/config-water_cycle-mswep.j2"
+    timeseries:
+      config: "${AQUA_CONFIG}/collections/jinja/water_cycle/config-water_cycle-mswep.j2"
+    biases:
+      config: "${AQUA_CONFIG}/collections/jinja/water_cycle/config-water_cycle-mswep.j2"
+    histogram:
+      config: "${AQUA_CONFIG}/collections/jinja/water_cycle/config-water_cycle-mswep.j2"
