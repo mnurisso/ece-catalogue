@@ -25,6 +25,7 @@ module load tykky
 tykky activate aqua
 
 amip=false
+KIND=default # The kind of experiment. Determines the date range of references. Available: default, scenario, storyline or make your own
 
 OUTDIR=/ec/res4/scratch/<YOURUSER>/aqua-analysis
 mkdir -p $OUTDIR
@@ -50,11 +51,14 @@ else
 fi
 
 # We use three different scripts because they all use different sources
-aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-atm -d $OUTDIR -p --config $configatm --regrid $regrid
+aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-atm --source_oce monthly-oce -k $KIND -o $OUTDIR --config $configatm --regrid $regrid
 if [ "$amip" = false ]; then
-    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-oce -d $OUTDIR -p --config $configoce --regrid $regrid
-    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -d $OUTDIR -p --config $configice --regrid $regrid
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-oce -k $KIND -o $OUTDIR --config $configoce --regrid $regrid
+    aqua analysis -l debug -c $catalog -m $model -e $exp -s monthly-ice -k $KIND -o $OUTDIR --config $configice --regrid $regrid
 fi
 
+# To push to your own climate-web server uncomment and adapt the following
 #cd /ec/res4/hpcperm/ccjh/AQUA/cli/aqua-web
-#./push_analysis.sh --rsync jost@wilma.to.isac.cnr.it:work/aqua/upload -c  /home/ccjh/hpcperm/AQUA/cli/aqua-web/config.grouping.yaml  $SCRATCH/aqua-analysis atos/EC-EARTH4/$exp
+#./push_analysis.sh --rsync aqua@climate-web.polito.it:ece4 -c ~/.aqua/analysis/config.grouping.yaml  $SCRATCH/aqua-analysis  ece4-tuning/EC-EARTH4/$exp/r1
+
+
